@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 
 using System.Runtime.CompilerServices;
+using System.Threading;
 [assembly: InternalsVisibleTo("MovementTests")]
 
 
@@ -65,7 +66,7 @@ namespace vector_accelerator_project
             // UPDATE ON UNITS: 2000 => 8mm , 20000 => 80mm
             // Set as DEFAULT. 
             // Override option possible.
-            mmToStepper_unitAxisC = 14970;
+            mmToStepper_unitAxisC = 25000;
             mmToStepper_unitAxisAB = 250;
         }
 
@@ -458,7 +459,7 @@ namespace vector_accelerator_project
             //this.gclib = gclib;
         }
 
-        public virtual void move(MovementVariables movementVariables) { }
+        public virtual void move(MovementVariables movementVariables, CancellationToken cancellationToken) { }
         //public virtual void displayFunc() { } // Format for displaying your movement required values
 
         public void goHome(MovementVariables movementVariables)
@@ -480,7 +481,7 @@ namespace vector_accelerator_project
         }
 
         override
-        public void move(MovementVariables movementVariables)
+        public void move(MovementVariables movementVariables, CancellationToken cancellationToken)
         {
             moveFactory.special_move_helper(movementVariables.Start_position, movementVariables);
             // BLOCK of code to complete user specified task....
@@ -491,6 +492,13 @@ namespace vector_accelerator_project
             //WANT TO PASS PNA_SCAN ARGUMENTS TO BE ACCESSED WITHIN THAT METHOD ITSELF
             System.Threading.Thread.Sleep(200);
             movementVariables.Intermediate_positions?.ForEach(a => {
+
+                // Check for cancellation at the start of each segment
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return; // Exit the ForEach loop and stop the entire function
+                }
+
                 moveFactory.special_move_helper(a, movementVariables);
                 // BLOCK of code to complete user specified task....
                 // I replace it temporarily with a simple pause:
@@ -521,17 +529,29 @@ namespace vector_accelerator_project
         }
 
         override
-        public void move(MovementVariables movementVariables)
+        public void move(MovementVariables movementVariables, CancellationToken cancellationToken)
         {
             int counter = 0; // indicates how many segments have been processed.
             movementVariables.Segment_positions?.ForEach(a =>
             {
+                // Check for cancellation at the start of each segment
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return; // Exit the ForEach loop and stop the entire function
+                }
+
                 int multiplier = 0;
                 // Do not consider last element of segment_positions as it does not contain validated input that has passed through the function button21_clicked:
                 if (counter < movementVariables.Segment_positions.Count - 1)
                 {
                     while (true)
                     {
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            // Exit the loop if cancellation is requested
+                            return;
+                        }
+
                         // Reuse Start_position array to place each of our segment movement coordinates
                         movementVariables.Start_position[0] = multiplier * a[2] + a[0];
                         movementVariables.Start_position[1] = multiplier * a[5] + a[3];                                 

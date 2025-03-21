@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
@@ -30,6 +31,9 @@ namespace vector_accelerator_project
         // global persistent variables (used in movementVariables_mm):
         private int myMmToStepper_unitAxisC;
         private int myMmToStepper_unitAxisAB;
+
+        // Cancellation token source to stop the async process
+        private CancellationTokenSource _cancellationTokenSource;
 
         #region "Might remove"
 
@@ -58,58 +62,18 @@ namespace vector_accelerator_project
                 PrintOutput(textBox1, "Updating absolute position.. ", PrintStyle.Normal, true);
                 PrintOutput(textBox2, "Updating absolute position.. ", PrintStyle.Normal, true);
 
-                /*
-
-                // Apparently GCommand would not allow me to display the TD returned result in GMessage
-                // So I used these 2 lines instead:
-                // Flush out outdated value:
-                gclib.GProgramDownload("TD", "");
-                gclib.GCommand("XQ");
-                string td_value = gclib.GMessage();
-
-                // Get updated value:
-                gclib.GProgramDownload("TD", "");   
-                gclib.GCommand("XQ");
-                td_value = gclib.GMessage();
-
-                var watch = Stopwatch.StartNew();
-                while (!Regex.IsMatch(td_value, @"[0-9]+,\s[0-9]+,\s[0-9]+"))
-                {   
-                    gclib.GProgramDownload("TD", "");
-                    gclib.GCommand("XQ");
-                    td_value = gclib.GMessage();
-
-                    if(watch.ElapsedMilliseconds > 3000)
-                    {
-                        watch.Stop();
-                        throw new TimeoutException("TD command output result format incorrect after 3sec conversion!");
-                    }
-                }
-                watch.Stop();
-                //throw new System.IndexOutOfRangeException("TD command invalid return..Ignore");
-
-                // Needed to extract substring because for some reason there is another string being outputted:
-                td_value = td_value.Substring(0, td_value.IndexOf(Environment.NewLine));
-                */
-
-                // V2: found a better way to do the above, avoiding all the bugs...
+                
                 string td_value = gclib.GCommand("PA?,?,?");
        
 
                 PrintOutput(textBox1, "Converting..", PrintStyle.Normal, true);
 
-
-                // 231019: Note that the error messages (tagged with  "TD" and "text to int") are caused by this section:
-                   // I suspect that it is because the line td_value = gclib.GMessage returns messages not intended, i.e. commas disappeared?
-                   // Might be benign: can ignore for now. 
                 // Here onwards we update the variable abs_position:
                 // this function only updates X, Y coordinates
                 coor_string_to_intArr(td_value, abs_position);
                 // To update Z coordinate (axis-c), we do so manually:
                 // Note that IndexOf in this case has 2 args and works like such:
                 // 1st arg = char to look for in str, 2nd arg = index in str to begin searching
-
-                
                 int index_2nd_comma = td_value.IndexOf(',', td_value.IndexOf(',') + 2);    
                 string temp = td_value.Substring(index_2nd_comma);
                 int temp_abs = abs_position[2];
@@ -639,14 +603,41 @@ namespace vector_accelerator_project
         #endregion
 
         //Button for start special movement (movement depends on which radio box (manual or segment) is checked):
-        private void button13_Click(object sender, EventArgs e)
+        private async void button13_Click(object sender, EventArgs e)
         {
+            // Disable the Start button and enable the Stop button
+            button13.Enabled = false;
+            btnStop.Enabled = true;
+
+            // Create a new CancellationTokenSource
+            _cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = _cancellationTokenSource.Token;
+
             #region "agilent setup"
             //Agilent VNA (surfaceScan) code:
             PNA_init();
             #endregion
 
-            movementType.move(movementVariables);
+            try
+            {
+                // Start the async process
+                await Task.Run(() => movementType.move(movementVariables, cancellationToken), cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                // Handle cancellation (optional)
+                printTextBox1("Measurement Stopped");
+            }
+            finally
+            {
+                // Re-enable the Start button and disable the Stop button
+                button13.Enabled = true;
+                btnStop.Enabled = false;
+
+                // Clean up the CancellationTokenSource
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
+            }
             cur_abs_pos(abs_position);
         }
         #region "Others"
@@ -1044,6 +1035,17 @@ namespace vector_accelerator_project
             Int32.TryParse(unitCalibrateTextBox.Text, out value);
             myMmToStepper_unitAxisAB = value;
             movementVariables.mmToStepper_unitAxisAB = value;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            // Request cancellation
+            _cancellationTokenSource?.Cancel();
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
