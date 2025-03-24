@@ -196,7 +196,9 @@ Axis-a: +ve (front),  -ve (back)
 Axis-b: +ve (left), -ve (right)
 Axis-c: +ve (downwards), -ve (upwards)
 
-Slew Speed normal range: 5000 - 500,000</value>
+Maximum speed:
+Axis-a,b: &lt; 25000 Stepper Units/s, 100 mm/s
+Axis-c: &lt; 500000 Stepper Units/s, 20 mm/s</value>
   </data>
   <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>467, 0</value>

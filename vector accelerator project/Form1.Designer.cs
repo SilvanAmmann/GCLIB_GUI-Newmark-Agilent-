@@ -283,7 +283,7 @@ namespace vector_accelerator_project
             this.AddressTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AddressTextBox.Name = "AddressTextBox";
             this.AddressTextBox.Size = new System.Drawing.Size(301, 31);
-            this.AddressTextBox.Text = "192.168.1.1"; // old: "COM14 --direct --baud 19200 --subscribe ALL"
+            this.AddressTextBox.Text = "192.168.1.1";
             this.AddressTextBox.Click += new System.EventHandler(this.AddressTextBox_Click);
             // 
             // toolStripButton3
@@ -321,12 +321,12 @@ namespace vector_accelerator_project
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(221, 44);
+            this.label5.Location = new System.Drawing.Point(221, 32);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 31);
+            this.label5.Size = new System.Drawing.Size(84, 44);
             this.label5.TabIndex = 20;
-            this.label5.Text = "Stepper Units (>300):";
+            this.label5.Text = "Distance in\r\nStepper Units (>300):";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // unitbox
@@ -1211,7 +1211,7 @@ namespace vector_accelerator_project
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(301, 177);
+            this.richTextBox1.Size = new System.Drawing.Size(301, 207);
             this.richTextBox1.TabIndex = 32;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -1258,10 +1258,11 @@ namespace vector_accelerator_project
             this.StartupConfig.TabIndex = 0;
             this.StartupConfig.Text = "Startup Config";
             this.StartupConfig.UseVisualStyleBackColor = true;
+            this.StartupConfig.Click += new System.EventHandler(this.StartupConfig_Click);
             // 
             // button25
             // 
-            this.button25.Location = new System.Drawing.Point(143, 92);
+            this.button25.Location = new System.Drawing.Point(124, 101);
             this.button25.Margin = new System.Windows.Forms.Padding(2);
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(50, 19);
@@ -1282,7 +1283,7 @@ namespace vector_accelerator_project
             // 
             // button24
             // 
-            this.button24.Location = new System.Drawing.Point(82, 92);
+            this.button24.Location = new System.Drawing.Point(70, 101);
             this.button24.Margin = new System.Windows.Forms.Padding(2);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(50, 19);
@@ -1306,7 +1307,7 @@ namespace vector_accelerator_project
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(23, 92);
+            this.button23.Location = new System.Drawing.Point(16, 101);
             this.button23.Margin = new System.Windows.Forms.Padding(2);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(50, 19);
@@ -1317,10 +1318,10 @@ namespace vector_accelerator_project
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(82, 71);
+            this.textBox8.Location = new System.Drawing.Point(16, 80);
             this.textBox8.Margin = new System.Windows.Forms.Padding(2);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(94, 20);
+            this.textBox8.Size = new System.Drawing.Size(158, 20);
             this.textBox8.TabIndex = 49;
             this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
@@ -1340,12 +1341,13 @@ namespace vector_accelerator_project
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(13, 73);
+            this.label21.Location = new System.Drawing.Point(13, 65);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(67, 13);
+            this.label21.Size = new System.Drawing.Size(150, 13);
             this.label21.TabIndex = 50;
-            this.label21.Text = "Slew Speed:";
+            this.label21.Text = "Slew Speed (Stepper Units/s):";
+            this.label21.Click += new System.EventHandler(this.label21_Click);
             // 
             // tabPage2
             // 

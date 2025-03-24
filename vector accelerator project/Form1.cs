@@ -197,8 +197,18 @@ namespace vector_accelerator_project
             if (mmButton.Checked || stepperButton.Checked)
             {
                 on_unitSelected();
-                if (mmButton.Checked) movementVariables = new MovementVariables_mmUnit();
-                else if (stepperButton.Checked) movementVariables = new MovementVariables_stepperUnit();
+                if (mmButton.Checked)
+                {
+                    movementVariables = new MovementVariables_mmUnit();
+                    label5.Text = "Distance in\r\nmm (>1mm):\r\n";
+                    label21.Text = "Speed (mm/s):";
+                }
+                else if (stepperButton.Checked)
+                {
+                    movementVariables = new MovementVariables_stepperUnit();
+                    label5.Text = "Distance in\r\nStepper Units (>300):\r\n";
+                    label21.Text = "Speed (Stepper Units/s):";
+                }
 
                 // UPDATE 30/4/20:
                 movementVariables.mmToStepper_unitAxisAB = myMmToStepper_unitAxisAB;
@@ -396,12 +406,12 @@ namespace vector_accelerator_project
         private void mmButton_CheckedChanged(object sender, EventArgs e)
         {
             if(mmButton.Checked)
-            unitChangeHandler();
+                unitChangeHandler();
         }
 
         private void stepperButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (stepperButton.Checked)
+            if(stepperButton.Checked)
                 unitChangeHandler();
         }
         #endregion
@@ -477,7 +487,7 @@ namespace vector_accelerator_project
             //runCommand("i=0\r#A;MG i{N};i=i+1;WT10;JP#A,i<10;EN");
 
             //take a single button click as moving 10000 units in a-axis
-            movementType.runRelativeMoveCommand("A", movementVariables.Increment_unit, movementVariables.Speed_a);
+            movementType.runRelativeMoveCommand("A", movementVariables.Increment_unit_a, movementVariables.Speed_a);
 
             cur_abs_pos(abs_position);
         }
@@ -485,35 +495,35 @@ namespace vector_accelerator_project
         // general movement, - axis-a incremental movement button: 
         private void button2_Click(object sender, EventArgs e)
         {
-            movementType.runRelativeMoveCommand("A", -1 * movementVariables.Increment_unit, movementVariables.Speed_a);
+            movementType.runRelativeMoveCommand("A", -1 * movementVariables.Increment_unit_a, movementVariables.Speed_a);
             cur_abs_pos(abs_position);
         } 
 
         // general movement, + axis-b incremental movement button: 
         private void button4_Click(object sender, EventArgs e)
         {
-            movementType.runRelativeMoveCommand("B", movementVariables.Increment_unit, movementVariables.Speed_b);
+            movementType.runRelativeMoveCommand("B", movementVariables.Increment_unit_b, movementVariables.Speed_b);
             cur_abs_pos(abs_position);
         }
 
         // general movement, - axis-b incremental movement button: 
         private void button3_Click(object sender, EventArgs e)
         {
-            movementType.runRelativeMoveCommand("B", -1 * movementVariables.Increment_unit, movementVariables.Speed_b);
+            movementType.runRelativeMoveCommand("B", -1 * movementVariables.Increment_unit_b, movementVariables.Speed_b);
             cur_abs_pos(abs_position);
         }
 
         // general movement, + axis-c incremental movement button: 
         private void button6_Click(object sender, EventArgs e)
         {
-            movementType.runRelativeMoveCommand("C", movementVariables.Increment_unit, movementVariables.Speed_c);
+            movementType.runRelativeMoveCommand("C", movementVariables.Increment_unit_c, movementVariables.Speed_c);
             cur_abs_pos(abs_position);
         }
 
         // general movement, - axis-c incremental movement button: 
         private void button5_Click(object sender, EventArgs e)
         {
-            movementType.runRelativeMoveCommand("C", -1 * movementVariables.Increment_unit, movementVariables.Speed_c);
+            movementType.runRelativeMoveCommand("C", -1 * movementVariables.Increment_unit_c, movementVariables.Speed_c);
             cur_abs_pos(abs_position);
         }
         #endregion
@@ -674,9 +684,11 @@ namespace vector_accelerator_project
             if (e.KeyChar == (char)13)
             {
                 // Enter key pressed. Now do:
-                int value = 10000; // self determined default value
+                int value = 10; // self determined default value in mm
                 Int32.TryParse(unitbox.Text, out value);
-                movementVariables.Increment_unit = value;
+                movementVariables.Increment_unit_a = value;
+                movementVariables.Increment_unit_b = value;
+                movementVariables.Increment_unit_c = value;
             }
         }
         #endregion
@@ -772,9 +784,8 @@ namespace vector_accelerator_project
         // Segment movement: reset all segments button:
         private void button22_Click(object sender, EventArgs e)
         {
-            unitChangeHandler();
-            axisCinputBox.Enabled = true; segmentBox.Enabled = true; // enable these 2 interfaces as the above function call disables them 
-            textBox4.Clear();
+            movementVariables.clear_allSegments(display_textbox4_segment);
+            //textBox4.Clear();
         }
 
         //// Segment movement: add segment button:
@@ -1044,6 +1055,16 @@ namespace vector_accelerator_project
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void StartupConfig_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label21_Click(object sender, EventArgs e)
         {
 
         }

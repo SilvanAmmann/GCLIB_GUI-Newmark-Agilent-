@@ -24,13 +24,14 @@ namespace vector_accelerator_project
         // each int[] has 6 elements (in-order): 
         // a(start), a(end), a(delta), b(start), b(end), b(delta)
         public List<int[]> Segment_positions { get; private set; }
-    
 
         //Variables that store other parameters:
         public virtual int Axis_c_drop_by { get; set; }  //axis-c drop by how many units while sampling
         public virtual int Axis_c_rest_position { get; set; }
 
-        public virtual int Increment_unit { get; set; }
+        public virtual int Increment_unit_a { get; set; }
+        public virtual int Increment_unit_b { get; set; }
+        public virtual int Increment_unit_c { get; set; }
         public virtual int Speed_a { get; set; } //recommended speed
         public virtual int Speed_b { get; set; } //recommended speed
         public virtual int Speed_c { get; set; } //recommended speed
@@ -50,17 +51,19 @@ namespace vector_accelerator_project
             //Intermediate_positions.Add(new int[2] { 0, 0 });
 
             Segment_positions = new List<int[]>();
-            Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 });
 
 
             //Variables that store other parameters:
             Axis_c_drop_by = 0;  //axis-c drop by how many units while sampling
             Axis_c_rest_position = 0;
 
-            Increment_unit = 10000;
-            Speed_a = 5000; //recommended speed
-            Speed_b = 5000; //recommended speed
-            Speed_c = 400000; //recommended speed
+            // TODO: make default in mm/s
+            Increment_unit_a = 10000;
+            Increment_unit_b = 10000;
+            Increment_unit_c = 10000;
+            Speed_a = 5000; //recommended speed in mm/s (5000 stepper units/s)
+            Speed_b = 5000; //recommended speed in mm/s (5000 stepper units/s)
+            Speed_c = 400000; //recommended speed in mm/s (400000 stepper units/s)
 
 
             // UPDATE ON UNITS: 2000 => 8mm , 20000 => 80mm
@@ -176,6 +179,14 @@ namespace vector_accelerator_project
 
             return true;
         }
+
+        public void clear_allSegments(displayFunc display)
+        {
+            Segment_positions.Clear(); // Remove all elements
+            Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 }); // Add a new default array
+
+            display?.Invoke();
+        }
     }
 
     class MovementVariables_stepperUnit : MovementVariables
@@ -254,32 +265,57 @@ namespace vector_accelerator_project
         //Variables that store other parameters:
         private int axis_c_drop_by;
         private int axis_c_rest_position;
-        // private int _increment_unit;
+        private int increment_unit_a;
+        private int increment_unit_b;
+        private int increment_unit_c;
+        private int speed_a;
+        private int speed_b;
+        private int speed_c;
 
         public override int Axis_c_drop_by
         {
             get => axis_c_drop_by;
-            // set => axis_c_drop_by = value * 14970;
-
-            // V2 Update 29/4:
             set => axis_c_drop_by = value * mmToStepper_unitAxisC;
         }  
         public override int Axis_c_rest_position
         {
             get => axis_c_rest_position;
-            // set => axis_c_rest_position = value * 14970;
-
-            // V2 Update 29/4:
             set => axis_c_rest_position = value * mmToStepper_unitAxisC;
         }
 
-        public override int Increment_unit
+        public override int Increment_unit_a
         {
-            get; set;
-            //  get { return _increment_unit * mmToStepper_unitAxisAB; }
+            get => increment_unit_a / mmToStepper_unitAxisAB;
+            set => increment_unit_a = value * mmToStepper_unitAxisAB;
+        }
 
+        public override int Increment_unit_b
+        {
+            get => increment_unit_b / mmToStepper_unitAxisAB;
+            set => increment_unit_b = value * mmToStepper_unitAxisAB;
+        }
+        public override int Increment_unit_c
+        {
+            get => increment_unit_c / mmToStepper_unitAxisC;
+            set => increment_unit_c = value * mmToStepper_unitAxisC;
+        }
 
-            // set { _increment_unit = value; }
+        public override int Speed_a
+        {
+            get => speed_a / mmToStepper_unitAxisAB;
+            set => speed_a = value * mmToStepper_unitAxisAB;
+        }
+
+        public override int Speed_b
+        {
+            get => speed_b / mmToStepper_unitAxisAB;
+            set => speed_b = value * mmToStepper_unitAxisAB;
+        }
+
+        public override int Speed_c
+        {
+            get => speed_c / mmToStepper_unitAxisC;
+            set => speed_c = value * mmToStepper_unitAxisC;
         }
 
         public override bool set_StartPosition(int index, int value)
