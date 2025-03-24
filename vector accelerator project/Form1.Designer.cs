@@ -283,7 +283,7 @@ namespace vector_accelerator_project
             this.AddressTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AddressTextBox.Name = "AddressTextBox";
             this.AddressTextBox.Size = new System.Drawing.Size(301, 31);
-            this.AddressTextBox.Text = "COM14 --direct --baud 19200 --subscribe ALL";
+            this.AddressTextBox.Text = "192.168.1.1"; // old: "COM14 --direct --baud 19200 --subscribe ALL"
             this.AddressTextBox.Click += new System.EventHandler(this.AddressTextBox_Click);
             // 
             // toolStripButton3

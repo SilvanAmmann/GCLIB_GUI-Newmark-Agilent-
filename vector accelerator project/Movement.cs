@@ -372,7 +372,7 @@ namespace vector_accelerator_project
             try
             {
                 form.printTextBox1("Preparing " + axis + " axis for PA movement. This could cause errors if the axis is not initialized...");
-                //gclib.GCommand("AB;MO;SH" + axis);  // not used for test purposes
+                gclib.GCommand("MO;SH" + axis);  // removed the AB; (abort) command at the begining, because it is suspected to cause problems.
                 //compound commands are possible though typically not recommended
                 form.printTextBox1("Ok");
                 gclib.GCommand("PA" + axis + "=" + distance_units);
@@ -400,7 +400,7 @@ namespace vector_accelerator_project
             try
             {
                 form.printTextBox1("Preparing " + axis + " axis for PR movement. This could cause errors if the axis is not initialized...");
-                gclib.GCommand("AB;MO;SH" + axis);
+                gclib.GCommand("MO;SH" + axis);
                 //compound commands are possible though typically not recommended
                 form.printTextBox1("Ok");
                 gclib.GCommand("PR" + axis + "=" + distance_units);
