@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Windows.Forms;
 [assembly: InternalsVisibleTo("MovementTests")]
 
 
@@ -559,15 +560,19 @@ namespace vector_accelerator_project
 
     class SegmentMovement : MovementType
     {
+        private Form1 form; // for test purposes: to print stopwatch time
+
         public SegmentMovement(PNA analyzer, Form1 form, gclib gclib/*, ref MovementVariables movementVariables*/)
             : base(analyzer, form, gclib/*, ref movementVariables*/)
         {
+            this.form = form; // for test purposes: to print stopwatch time
         }
 
         override
         public void move(MovementVariables movementVariables, CancellationToken cancellationToken)
         {
             int counter = 0; // indicates how many segments have been processed.
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             movementVariables.Segment_positions?.ForEach(a =>
             {
                 // Check for cancellation at the start of each segment
@@ -593,10 +598,14 @@ namespace vector_accelerator_project
                         movementVariables.Start_position[1] = multiplier * a[5] + a[3];                                 
                         multiplier += 1;
                         //if ( (start_position[0] < 0 && (Math.Abs(start_position[0]) > Math.Abs(a[1])  || Math.Abs(start_position[1]) > Math.Abs(a[4])) ) || (start_position[0] < 0 && (Math.Abs(start_position[0]) > Math.Abs(a[1]) || Math.Abs(start_position[1]) > Math.Abs(a[4])))) break;
+                        stopwatch.Restart();
                         moveFactory.special_move_helper(movementVariables.Start_position, movementVariables);
+                        form.printTextBox1($"Scan took: {stopwatch.ElapsedMilliseconds}ms");
                         //
                         // i add VNA stuff in now:
+                        stopwatch.Restart();
                         analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
+                        form.printTextBox1($"Move took: {stopwatch.ElapsedMilliseconds}ms");
 
                         if (movementVariables.Start_position[0] == a[1] && movementVariables.Start_position[1] == a[4]) break;                      
                     }

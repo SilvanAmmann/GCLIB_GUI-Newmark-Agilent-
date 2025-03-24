@@ -814,7 +814,7 @@ namespace vector_accelerator_project
         {
             if (manualButton.Checked == true)
             {
-                unitChangeHandler(); // Move up as it resets movementVariables below.. need to fix this side effect
+                //unitChangeHandler(); // commented for test purposes
                 movementType = new ManualMovement(analyzer, this, gclib/*, ref movementVariables*/);
                 
                 segmentBox.Enabled = false; axisCinputBox.Enabled = true;
@@ -828,7 +828,7 @@ namespace vector_accelerator_project
         {
             if (segmentButton.Checked == true)
             {
-                unitChangeHandler();
+                //unitChangeHandler(); //comented for test purposes
                 movementType = new SegmentMovement(analyzer, this, gclib/*, ref movementVariables*/);
                 
                 segmentBox.Enabled = true; axisCinputBox.Enabled = true;
