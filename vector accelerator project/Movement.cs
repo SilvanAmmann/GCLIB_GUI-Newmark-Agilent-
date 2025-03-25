@@ -58,14 +58,6 @@ namespace vector_accelerator_project
             Axis_c_drop_by = 0;  //axis-c drop by how many units while sampling
             Axis_c_rest_position = 0;
 
-            // TODO: make default in mm/s
-            Increment_unit_a = 10000;
-            Increment_unit_b = 10000;
-            Increment_unit_c = 10000;
-            Speed_a = 5000; //recommended speed in mm/s (5000 stepper units/s)
-            Speed_b = 5000; //recommended speed in mm/s (5000 stepper units/s)
-            Speed_c = 400000; //recommended speed in mm/s (400000 stepper units/s)
-
 
             // UPDATE ON UNITS: 2000 => 8mm , 20000 => 80mm
             // Set as DEFAULT. 
@@ -195,6 +187,12 @@ namespace vector_accelerator_project
         public MovementVariables_stepperUnit()
             : base()
         {
+            Increment_unit_a = 10000;
+            Increment_unit_b = 10000;
+            Increment_unit_c = 10000;
+            Speed_a = 5000; //recommended speed 5000 stepper units/s
+            Speed_b = 5000; //recommended speed 5000 stepper units/s
+            Speed_c = 400000; //recommended speed 400000 stepper units/s
         }
 
         public override bool set_StartPosition(int index, int value)
@@ -260,7 +258,12 @@ namespace vector_accelerator_project
         public MovementVariables_mmUnit()
             : base()
         {
-            // Increment_unit = 1;
+            Increment_unit_a = 40;
+            Increment_unit_b = 40;
+            Increment_unit_c = 10;
+            Speed_a = 20; //recommended speed 20 mm/s
+            Speed_b = 20; //recommended speed 20 mm/s
+            Speed_c = 16; //recommended speed 16 mm/s
         }
 
         //Variables that store other parameters:
@@ -286,36 +289,36 @@ namespace vector_accelerator_project
 
         public override int Increment_unit_a
         {
-            get => increment_unit_a / mmToStepper_unitAxisAB;
+            get => increment_unit_a;
             set => increment_unit_a = value * mmToStepper_unitAxisAB;
         }
 
         public override int Increment_unit_b
         {
-            get => increment_unit_b / mmToStepper_unitAxisAB;
+            get => increment_unit_b;
             set => increment_unit_b = value * mmToStepper_unitAxisAB;
         }
         public override int Increment_unit_c
         {
-            get => increment_unit_c / mmToStepper_unitAxisC;
+            get => increment_unit_c;
             set => increment_unit_c = value * mmToStepper_unitAxisC;
         }
 
         public override int Speed_a
         {
-            get => speed_a / mmToStepper_unitAxisAB;
+            get => speed_a;
             set => speed_a = value * mmToStepper_unitAxisAB;
         }
 
         public override int Speed_b
         {
-            get => speed_b / mmToStepper_unitAxisAB;
+            get => speed_b;
             set => speed_b = value * mmToStepper_unitAxisAB;
         }
 
         public override int Speed_c
         {
-            get => speed_c / mmToStepper_unitAxisC;
+            get => speed_c;
             set => speed_c = value * mmToStepper_unitAxisC;
         }
 
