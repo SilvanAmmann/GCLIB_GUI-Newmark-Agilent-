@@ -99,7 +99,7 @@ namespace vector_accelerator_project
             InitializeComponent();
             InitializePNA(); // Initializes PNA needed variables, and resets internal "dataPoints" List. Sets analyzer
             
-            this.Text = "gclib simple testing example (TITLE HERE)";
+            this.Text = "vector accelerator";
         }
 
         //Runs when form loads
@@ -348,6 +348,11 @@ namespace vector_accelerator_project
         public void printTextBox1(string a, PrintStyle printStyle = PrintStyle.Normal)
         {
             PrintOutput(textBox1, a, printStyle, true);
+        }
+
+        public void printdebugTextBox(string a, PrintStyle printStyle = PrintStyle.Normal)
+        {
+            PrintOutput(debugTextBox, a, printStyle, true);
         }
         #endregion
 
@@ -785,7 +790,6 @@ namespace vector_accelerator_project
         private void button22_Click(object sender, EventArgs e)
         {
             movementVariables.clear_allSegments(display_textbox4_segment);
-            //textBox4.Clear();
         }
 
         //// Segment movement: add segment button:
@@ -815,6 +819,7 @@ namespace vector_accelerator_project
             if (manualButton.Checked == true)
             {
                 //unitChangeHandler(); // commented for test purposes
+                //movementVariables.clear_allSegments(display_textbox4_segment); //added to replace unitChangeHandler
                 movementType = new ManualMovement(analyzer, this, gclib/*, ref movementVariables*/);
                 
                 segmentBox.Enabled = false; axisCinputBox.Enabled = true;
@@ -829,6 +834,7 @@ namespace vector_accelerator_project
             if (segmentButton.Checked == true)
             {
                 //unitChangeHandler(); //comented for test purposes
+                //movementVariables.clear_allSegments(display_textbox4_segment); //added to replace unitChangeHandler
                 movementType = new SegmentMovement(analyzer, this, gclib/*, ref movementVariables*/);
                 
                 segmentBox.Enabled = true; axisCinputBox.Enabled = true;

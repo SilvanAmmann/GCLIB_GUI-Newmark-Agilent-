@@ -52,6 +52,7 @@ namespace vector_accelerator_project
             //Intermediate_positions.Add(new int[2] { 0, 0 });
 
             Segment_positions = new List<int[]>();
+            Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 }); // Will be filled with the segment/grid parameters.
 
 
             //Variables that store other parameters:
@@ -576,6 +577,7 @@ namespace vector_accelerator_project
         {
             int counter = 0; // indicates how many segments have been processed.
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            var timer = System.Diagnostics.Stopwatch.StartNew();
             movementVariables.Segment_positions?.ForEach(a =>
             {
                 // Check for cancellation at the start of each segment
@@ -603,12 +605,12 @@ namespace vector_accelerator_project
                         //if ( (start_position[0] < 0 && (Math.Abs(start_position[0]) > Math.Abs(a[1])  || Math.Abs(start_position[1]) > Math.Abs(a[4])) ) || (start_position[0] < 0 && (Math.Abs(start_position[0]) > Math.Abs(a[1]) || Math.Abs(start_position[1]) > Math.Abs(a[4])))) break;
                         stopwatch.Restart();
                         moveFactory.special_move_helper(movementVariables.Start_position, movementVariables);
-                        form.printTextBox1($"Scan took: {stopwatch.ElapsedMilliseconds}ms");
+                        form.printdebugTextBox($"Move took: {stopwatch.ElapsedMilliseconds}ms");
                         //
                         // i add VNA stuff in now:
                         stopwatch.Restart();
                         analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
-                        form.printTextBox1($"Move took: {stopwatch.ElapsedMilliseconds}ms");
+                        form.printdebugTextBox($"Scan took: {stopwatch.ElapsedMilliseconds}ms");
 
                         if (movementVariables.Start_position[0] == a[1] && movementVariables.Start_position[1] == a[4]) break;                      
                     }
@@ -617,7 +619,9 @@ namespace vector_accelerator_project
             });
             // return to original axis-c rest position before ending movement:
             moveFactory.runAbsoluteMoveCommand("C", movementVariables.Axis_c_rest_position, movementVariables.Speed_c);
+            form.printdebugTextBox($"Grid measurement took: {timer.ElapsedMilliseconds/1000}s");
         }
+
     }
 
     #region "Classes currently ununsed"

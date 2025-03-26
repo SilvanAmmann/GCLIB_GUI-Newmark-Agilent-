@@ -136,6 +136,7 @@ namespace vector_accelerator_project
             this.label11 = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.textBox6 = new System.Windows.Forms.TextBox();
+            this.debugTextBox = new System.Windows.Forms.RichTextBox();
             this.MainToolStrip.SuspendLayout();
             this.GeneralGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -160,11 +161,11 @@ namespace vector_accelerator_project
             // textBox1
             // 
             this.textBox1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBox1.Location = new System.Drawing.Point(8, 55);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Location = new System.Drawing.Point(11, 68);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(417, 129);
+            this.textBox1.Size = new System.Drawing.Size(555, 158);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -172,20 +173,18 @@ namespace vector_accelerator_project
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 38);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(11, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.Size = new System.Drawing.Size(93, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "System Output";
             // 
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(214, 185);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(285, 228);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(175, 19);
+            this.label6.Size = new System.Drawing.Size(233, 23);
             this.label6.TabIndex = 12;
             this.label6.Text = "Special Movement";
             this.label6.Click += new System.EventHandler(this.label6_Click);
@@ -193,20 +192,19 @@ namespace vector_accelerator_project
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 185);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(7, 228);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(162, 13);
+            this.label7.Size = new System.Drawing.Size(205, 16);
             this.label7.TabIndex = 14;
             this.label7.Text = "Current Absolute Position Display";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(5, 200);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox2.Location = new System.Drawing.Point(7, 246);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(195, 477);
+            this.textBox2.Size = new System.Drawing.Size(259, 586);
             this.textBox2.TabIndex = 13;
             this.textBox2.Text = "";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
@@ -229,7 +227,7 @@ namespace vector_accelerator_project
             this.toolStripButton3});
             this.MainToolStrip.Location = new System.Drawing.Point(0, 0);
             this.MainToolStrip.Name = "MainToolStrip";
-            this.MainToolStrip.Size = new System.Drawing.Size(797, 31);
+            this.MainToolStrip.Size = new System.Drawing.Size(898, 31);
             this.MainToolStrip.TabIndex = 15;
             this.MainToolStrip.Text = "toolStrip1";
             // 
@@ -238,7 +236,7 @@ namespace vector_accelerator_project
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(113, 28);
+            this.toolStripButton1.Size = new System.Drawing.Size(137, 28);
             this.toolStripButton1.Text = "Save PNA Data";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -247,14 +245,14 @@ namespace vector_accelerator_project
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(115, 28);
+            this.toolStripButton2.Size = new System.Drawing.Size(138, 28);
             this.toolStripButton2.Text = "Clear PNA data";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(100, 28);
+            this.toolStripLabel1.Size = new System.Drawing.Size(125, 28);
             this.toolStripLabel1.Text = "GOpen() Address:";
             // 
             // DisconnectStripButton
@@ -264,7 +262,7 @@ namespace vector_accelerator_project
             this.DisconnectStripButton.Image = ((System.Drawing.Image)(resources.GetObject("DisconnectStripButton.Image")));
             this.DisconnectStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.DisconnectStripButton.Name = "DisconnectStripButton";
-            this.DisconnectStripButton.Size = new System.Drawing.Size(70, 28);
+            this.DisconnectStripButton.Size = new System.Drawing.Size(86, 28);
             this.DisconnectStripButton.Text = "Disconnect";
             this.DisconnectStripButton.Click += new System.EventHandler(this.DisconnectStripButton_Click);
             // 
@@ -274,7 +272,7 @@ namespace vector_accelerator_project
             this.ConnectStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ConnectStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ConnectStripButton.Name = "ConnectStripButton";
-            this.ConnectStripButton.Size = new System.Drawing.Size(56, 28);
+            this.ConnectStripButton.Size = new System.Drawing.Size(67, 28);
             this.ConnectStripButton.Text = "Connect";
             this.ConnectStripButton.Click += new System.EventHandler(this.ConnectStripButton_Click);
             // 
@@ -292,7 +290,7 @@ namespace vector_accelerator_project
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton3.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton3.Text = "toolStripButton3";
             // 
             // GeneralGroup
@@ -309,11 +307,11 @@ namespace vector_accelerator_project
             this.GeneralGroup.Controls.Add(this.label1);
             this.GeneralGroup.Controls.Add(this.button1);
             this.GeneralGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GeneralGroup.Location = new System.Drawing.Point(427, 38);
-            this.GeneralGroup.Margin = new System.Windows.Forms.Padding(2);
+            this.GeneralGroup.Location = new System.Drawing.Point(569, 47);
+            this.GeneralGroup.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.GeneralGroup.Name = "GeneralGroup";
-            this.GeneralGroup.Padding = new System.Windows.Forms.Padding(2);
-            this.GeneralGroup.Size = new System.Drawing.Size(309, 145);
+            this.GeneralGroup.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.GeneralGroup.Size = new System.Drawing.Size(412, 178);
             this.GeneralGroup.TabIndex = 16;
             this.GeneralGroup.TabStop = false;
             this.GeneralGroup.Text = "General Relative Movement";
@@ -321,30 +319,29 @@ namespace vector_accelerator_project
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(221, 32);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(295, 39);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 44);
+            this.label5.Size = new System.Drawing.Size(112, 54);
             this.label5.TabIndex = 20;
             this.label5.Text = "Distance in\r\nStepper Units (>300):";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // unitbox
             // 
-            this.unitbox.Location = new System.Drawing.Point(227, 78);
-            this.unitbox.Margin = new System.Windows.Forms.Padding(2);
+            this.unitbox.Location = new System.Drawing.Point(303, 96);
+            this.unitbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.unitbox.Name = "unitbox";
-            this.unitbox.Size = new System.Drawing.Size(68, 20);
+            this.unitbox.Size = new System.Drawing.Size(89, 23);
             this.unitbox.TabIndex = 17;
             this.unitbox.TextChanged += new System.EventHandler(this.unitbox_TextChanged);
             this.unitbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckEnter_unitbox);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(147, 105);
-            this.button5.Margin = new System.Windows.Forms.Padding(2);
+            this.button5.Location = new System.Drawing.Point(196, 129);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(64, 25);
+            this.button5.Size = new System.Drawing.Size(85, 31);
             this.button5.TabIndex = 19;
             this.button5.Text = "- (c-axis)";
             this.button5.UseVisualStyleBackColor = true;
@@ -353,19 +350,18 @@ namespace vector_accelerator_project
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 110);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(25, 135);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.Size = new System.Drawing.Size(50, 17);
             this.label4.TabIndex = 18;
             this.label4.Text = "c-axis";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(69, 105);
-            this.button6.Margin = new System.Windows.Forms.Padding(2);
+            this.button6.Location = new System.Drawing.Point(92, 129);
+            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(64, 25);
+            this.button6.Size = new System.Drawing.Size(85, 31);
             this.button6.TabIndex = 17;
             this.button6.Text = "+ (c-axis)";
             this.button6.UseVisualStyleBackColor = true;
@@ -373,10 +369,10 @@ namespace vector_accelerator_project
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(147, 63);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Location = new System.Drawing.Point(196, 78);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(64, 25);
+            this.button3.Size = new System.Drawing.Size(85, 31);
             this.button3.TabIndex = 16;
             this.button3.Text = "- (b-axis)";
             this.button3.UseVisualStyleBackColor = true;
@@ -385,19 +381,18 @@ namespace vector_accelerator_project
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 69);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(25, 85);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.Size = new System.Drawing.Size(51, 17);
             this.label3.TabIndex = 15;
             this.label3.Text = "b-axis";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(69, 63);
-            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Location = new System.Drawing.Point(92, 78);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(64, 25);
+            this.button4.Size = new System.Drawing.Size(85, 31);
             this.button4.TabIndex = 14;
             this.button4.Text = "+ (b-axis)";
             this.button4.UseVisualStyleBackColor = true;
@@ -405,10 +400,10 @@ namespace vector_accelerator_project
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(147, 22);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Location = new System.Drawing.Point(196, 27);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(64, 25);
+            this.button2.Size = new System.Drawing.Size(85, 31);
             this.button2.TabIndex = 13;
             this.button2.Text = "- (a-axis)";
             this.button2.UseVisualStyleBackColor = true;
@@ -417,19 +412,18 @@ namespace vector_accelerator_project
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 28);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(25, 34);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.Size = new System.Drawing.Size(51, 17);
             this.label1.TabIndex = 12;
             this.label1.Text = "a-axis";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(69, 22);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Location = new System.Drawing.Point(92, 27);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(64, 25);
+            this.button1.Size = new System.Drawing.Size(85, 31);
             this.button1.TabIndex = 11;
             this.button1.Text = "+ (a-axis)";
             this.button1.UseVisualStyleBackColor = true;
@@ -437,10 +431,10 @@ namespace vector_accelerator_project
             // 
             // originButton
             // 
-            this.originButton.Location = new System.Drawing.Point(883, 3);
-            this.originButton.Margin = new System.Windows.Forms.Padding(2);
+            this.originButton.Location = new System.Drawing.Point(1177, 4);
+            this.originButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.originButton.Name = "originButton";
-            this.originButton.Size = new System.Drawing.Size(83, 22);
+            this.originButton.Size = new System.Drawing.Size(111, 27);
             this.originButton.TabIndex = 17;
             this.originButton.Text = "Set as Origin";
             this.originButton.UseVisualStyleBackColor = true;
@@ -448,10 +442,10 @@ namespace vector_accelerator_project
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(9, 47);
-            this.button7.Margin = new System.Windows.Forms.Padding(2);
+            this.button7.Location = new System.Drawing.Point(12, 58);
+            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(81, 19);
+            this.button7.Size = new System.Drawing.Size(108, 23);
             this.button7.TabIndex = 18;
             this.button7.Text = "Set Start point";
             this.button7.UseVisualStyleBackColor = true;
@@ -459,10 +453,10 @@ namespace vector_accelerator_project
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(9, 71);
-            this.button8.Margin = new System.Windows.Forms.Padding(2);
+            this.button8.Location = new System.Drawing.Point(12, 87);
+            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(119, 22);
+            this.button8.Size = new System.Drawing.Size(159, 27);
             this.button8.TabIndex = 19;
             this.button8.Text = "Set Intermediate point (multiple)";
             this.button8.UseVisualStyleBackColor = true;
@@ -470,10 +464,10 @@ namespace vector_accelerator_project
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(132, 71);
-            this.button9.Margin = new System.Windows.Forms.Padding(2);
+            this.button9.Location = new System.Drawing.Point(176, 87);
+            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(137, 22);
+            this.button9.Size = new System.Drawing.Size(183, 27);
             this.button9.TabIndex = 20;
             this.button9.Text = "Reset all points";
             this.button9.UseVisualStyleBackColor = true;
@@ -481,10 +475,10 @@ namespace vector_accelerator_project
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(94, 47);
-            this.button10.Margin = new System.Windows.Forms.Padding(2);
+            this.button10.Location = new System.Drawing.Point(125, 58);
+            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(81, 19);
+            this.button10.Size = new System.Drawing.Size(108, 23);
             this.button10.TabIndex = 21;
             this.button10.Text = "Set End point";
             this.button10.UseVisualStyleBackColor = true;
@@ -492,20 +486,19 @@ namespace vector_accelerator_project
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(143, 18);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox3.Location = new System.Drawing.Point(191, 22);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
+            this.textBox3.Size = new System.Drawing.Size(160, 22);
             this.textBox3.TabIndex = 22;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 20);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(11, 25);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(132, 13);
+            this.label8.Size = new System.Drawing.Size(156, 16);
             this.label8.TabIndex = 23;
             this.label8.Text = "Point Input (format \"A, B\"):";
             this.label8.Click += new System.EventHandler(this.label8_Click);
@@ -520,11 +513,11 @@ namespace vector_accelerator_project
             this.groupBox1.Controls.Add(this.textBox4);
             this.groupBox1.Controls.Add(this.segmentButton);
             this.groupBox1.Controls.Add(this.label20);
-            this.groupBox1.Location = new System.Drawing.Point(213, 205);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(284, 252);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(669, 463);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(892, 570);
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Anchor coordinates";
@@ -533,9 +526,10 @@ namespace vector_accelerator_project
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.btnStop.Location = new System.Drawing.Point(162, 415);
+            this.btnStop.Location = new System.Drawing.Point(216, 511);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(128, 37);
+            this.btnStop.Size = new System.Drawing.Size(171, 46);
             this.btnStop.TabIndex = 51;
             this.btnStop.Text = "Stop Movement";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -545,11 +539,11 @@ namespace vector_accelerator_project
             // 
             this.tabControl1.Controls.Add(this.translatorTabPage);
             this.tabControl1.Controls.Add(this.PNAtabPage);
-            this.tabControl1.Location = new System.Drawing.Point(16, 33);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl1.Location = new System.Drawing.Point(21, 41);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(292, 379);
+            this.tabControl1.Size = new System.Drawing.Size(389, 466);
             this.tabControl1.TabIndex = 44;
             // 
             // translatorTabPage
@@ -560,11 +554,11 @@ namespace vector_accelerator_project
             this.translatorTabPage.Controls.Add(this.label14);
             this.translatorTabPage.Controls.Add(this.label15);
             this.translatorTabPage.Controls.Add(this.label19);
-            this.translatorTabPage.Location = new System.Drawing.Point(4, 22);
-            this.translatorTabPage.Margin = new System.Windows.Forms.Padding(2);
+            this.translatorTabPage.Location = new System.Drawing.Point(4, 25);
+            this.translatorTabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.translatorTabPage.Name = "translatorTabPage";
-            this.translatorTabPage.Padding = new System.Windows.Forms.Padding(2);
-            this.translatorTabPage.Size = new System.Drawing.Size(284, 353);
+            this.translatorTabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.translatorTabPage.Size = new System.Drawing.Size(381, 437);
             this.translatorTabPage.TabIndex = 0;
             this.translatorTabPage.Text = "Translator";
             this.translatorTabPage.UseVisualStyleBackColor = true;
@@ -583,11 +577,11 @@ namespace vector_accelerator_project
             this.segmentBox.Controls.Add(this.button12);
             this.segmentBox.Controls.Add(this.button19);
             this.segmentBox.Controls.Add(this.button20);
-            this.segmentBox.Location = new System.Drawing.Point(8, 194);
-            this.segmentBox.Margin = new System.Windows.Forms.Padding(2);
+            this.segmentBox.Location = new System.Drawing.Point(11, 239);
+            this.segmentBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.segmentBox.Name = "segmentBox";
-            this.segmentBox.Padding = new System.Windows.Forms.Padding(2);
-            this.segmentBox.Size = new System.Drawing.Size(271, 161);
+            this.segmentBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.segmentBox.Size = new System.Drawing.Size(361, 198);
             this.segmentBox.TabIndex = 52;
             this.segmentBox.TabStop = false;
             this.segmentBox.Text = "Input by segment:";
@@ -595,10 +589,10 @@ namespace vector_accelerator_project
             // segmentGridButton
             // 
             this.segmentGridButton.AutoSize = true;
-            this.segmentGridButton.Location = new System.Drawing.Point(101, 17);
-            this.segmentGridButton.Margin = new System.Windows.Forms.Padding(2);
+            this.segmentGridButton.Location = new System.Drawing.Point(135, 21);
+            this.segmentGridButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.segmentGridButton.Name = "segmentGridButton";
-            this.segmentGridButton.Size = new System.Drawing.Size(44, 17);
+            this.segmentGridButton.Size = new System.Drawing.Size(53, 20);
             this.segmentGridButton.TabIndex = 50;
             this.segmentGridButton.Text = "Grid";
             this.segmentGridButton.UseVisualStyleBackColor = true;
@@ -608,10 +602,10 @@ namespace vector_accelerator_project
             // 
             this.segmentNormalButton.AutoSize = true;
             this.segmentNormalButton.Checked = true;
-            this.segmentNormalButton.Location = new System.Drawing.Point(9, 17);
-            this.segmentNormalButton.Margin = new System.Windows.Forms.Padding(2);
+            this.segmentNormalButton.Location = new System.Drawing.Point(12, 21);
+            this.segmentNormalButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.segmentNormalButton.Name = "segmentNormalButton";
-            this.segmentNormalButton.Size = new System.Drawing.Size(58, 17);
+            this.segmentNormalButton.Size = new System.Drawing.Size(72, 20);
             this.segmentNormalButton.TabIndex = 49;
             this.segmentNormalButton.TabStop = true;
             this.segmentNormalButton.Text = "Normal";
@@ -621,27 +615,26 @@ namespace vector_accelerator_project
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(4, 39);
-            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Location = new System.Drawing.Point(5, 48);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(119, 13);
+            this.label18.Size = new System.Drawing.Size(140, 16);
             this.label18.TabIndex = 40;
             this.label18.Text = "Point Input (format \"Z\"):";
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(139, 37);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox7.Location = new System.Drawing.Point(185, 46);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(121, 20);
+            this.textBox7.Size = new System.Drawing.Size(160, 22);
             this.textBox7.TabIndex = 39;
             // 
             // button18
             // 
-            this.button18.Location = new System.Drawing.Point(90, 90);
-            this.button18.Margin = new System.Windows.Forms.Padding(2);
+            this.button18.Location = new System.Drawing.Point(120, 111);
+            this.button18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(81, 22);
+            this.button18.Size = new System.Drawing.Size(108, 27);
             this.button18.TabIndex = 43;
             this.button18.Text = "B (end)";
             this.button18.UseVisualStyleBackColor = true;
@@ -649,10 +642,10 @@ namespace vector_accelerator_project
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(90, 66);
-            this.button17.Margin = new System.Windows.Forms.Padding(2);
+            this.button17.Location = new System.Drawing.Point(120, 81);
+            this.button17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(81, 19);
+            this.button17.Size = new System.Drawing.Size(108, 23);
             this.button17.TabIndex = 44;
             this.button17.Text = "A (end)";
             this.button17.UseVisualStyleBackColor = true;
@@ -660,10 +653,10 @@ namespace vector_accelerator_project
             // 
             // button22
             // 
-            this.button22.Location = new System.Drawing.Point(139, 127);
-            this.button22.Margin = new System.Windows.Forms.Padding(2);
+            this.button22.Location = new System.Drawing.Point(185, 156);
+            this.button22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(107, 22);
+            this.button22.Size = new System.Drawing.Size(143, 27);
             this.button22.TabIndex = 48;
             this.button22.Text = "Clear all segments";
             this.button22.UseVisualStyleBackColor = true;
@@ -671,10 +664,10 @@ namespace vector_accelerator_project
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(5, 90);
-            this.button16.Margin = new System.Windows.Forms.Padding(2);
+            this.button16.Location = new System.Drawing.Point(7, 111);
+            this.button16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(81, 22);
+            this.button16.Size = new System.Drawing.Size(108, 27);
             this.button16.TabIndex = 42;
             this.button16.Text = "B (start)";
             this.button16.UseVisualStyleBackColor = true;
@@ -682,10 +675,10 @@ namespace vector_accelerator_project
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(34, 127);
-            this.button21.Margin = new System.Windows.Forms.Padding(2);
+            this.button21.Location = new System.Drawing.Point(45, 156);
+            this.button21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(81, 22);
+            this.button21.Size = new System.Drawing.Size(108, 27);
             this.button21.TabIndex = 47;
             this.button21.Text = "Add Segment";
             this.button21.UseVisualStyleBackColor = true;
@@ -693,10 +686,10 @@ namespace vector_accelerator_project
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(5, 66);
-            this.button12.Margin = new System.Windows.Forms.Padding(2);
+            this.button12.Location = new System.Drawing.Point(7, 81);
+            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(81, 19);
+            this.button12.Size = new System.Drawing.Size(108, 23);
             this.button12.TabIndex = 41;
             this.button12.Text = "A (start)";
             this.button12.UseVisualStyleBackColor = true;
@@ -704,10 +697,10 @@ namespace vector_accelerator_project
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(177, 66);
-            this.button19.Margin = new System.Windows.Forms.Padding(2);
+            this.button19.Location = new System.Drawing.Point(236, 81);
+            this.button19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(81, 19);
+            this.button19.Size = new System.Drawing.Size(108, 23);
             this.button19.TabIndex = 46;
             this.button19.Text = "A (delta)";
             this.button19.UseVisualStyleBackColor = true;
@@ -715,10 +708,10 @@ namespace vector_accelerator_project
             // 
             // button20
             // 
-            this.button20.Location = new System.Drawing.Point(177, 90);
-            this.button20.Margin = new System.Windows.Forms.Padding(2);
+            this.button20.Location = new System.Drawing.Point(236, 111);
+            this.button20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(81, 22);
+            this.button20.Size = new System.Drawing.Size(108, 27);
             this.button20.TabIndex = 45;
             this.button20.Text = "B (delta)";
             this.button20.UseVisualStyleBackColor = true;
@@ -732,11 +725,11 @@ namespace vector_accelerator_project
             this.manualBox.Controls.Add(this.textBox3);
             this.manualBox.Controls.Add(this.button7);
             this.manualBox.Controls.Add(this.label8);
-            this.manualBox.Location = new System.Drawing.Point(6, 8);
-            this.manualBox.Margin = new System.Windows.Forms.Padding(2);
+            this.manualBox.Location = new System.Drawing.Point(8, 10);
+            this.manualBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.manualBox.Name = "manualBox";
-            this.manualBox.Padding = new System.Windows.Forms.Padding(2);
-            this.manualBox.Size = new System.Drawing.Size(271, 97);
+            this.manualBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.manualBox.Size = new System.Drawing.Size(361, 119);
             this.manualBox.TabIndex = 43;
             this.manualBox.TabStop = false;
             this.manualBox.Text = "Manual Input:";
@@ -747,11 +740,11 @@ namespace vector_accelerator_project
             this.axisCinputBox.Controls.Add(this.textBox5);
             this.axisCinputBox.Controls.Add(this.button11);
             this.axisCinputBox.Controls.Add(this.button15);
-            this.axisCinputBox.Location = new System.Drawing.Point(2, 116);
-            this.axisCinputBox.Margin = new System.Windows.Forms.Padding(2);
+            this.axisCinputBox.Location = new System.Drawing.Point(3, 143);
+            this.axisCinputBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.axisCinputBox.Name = "axisCinputBox";
-            this.axisCinputBox.Padding = new System.Windows.Forms.Padding(2);
-            this.axisCinputBox.Size = new System.Drawing.Size(266, 71);
+            this.axisCinputBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.axisCinputBox.Size = new System.Drawing.Size(355, 87);
             this.axisCinputBox.TabIndex = 51;
             this.axisCinputBox.TabStop = false;
             this.axisCinputBox.Text = "Axis-c input:";
@@ -759,28 +752,27 @@ namespace vector_accelerator_project
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(4, 16);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(5, 20);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(173, 13);
+            this.label10.Size = new System.Drawing.Size(210, 16);
             this.label10.TabIndex = 30;
             this.label10.Text = "Other parameter input (format: \"Z\"):";
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(183, 16);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox5.Location = new System.Drawing.Point(244, 20);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(68, 20);
+            this.textBox5.Size = new System.Drawing.Size(89, 22);
             this.textBox5.TabIndex = 27;
             this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(6, 38);
-            this.button11.Margin = new System.Windows.Forms.Padding(2);
+            this.button11.Location = new System.Drawing.Point(8, 47);
+            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(109, 31);
+            this.button11.Size = new System.Drawing.Size(145, 38);
             this.button11.TabIndex = 28;
             this.button11.Text = "Axis-c drop bar by (relative):";
             this.button11.UseVisualStyleBackColor = true;
@@ -788,10 +780,10 @@ namespace vector_accelerator_project
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(129, 38);
-            this.button15.Margin = new System.Windows.Forms.Padding(2);
+            this.button15.Location = new System.Drawing.Point(172, 47);
+            this.button15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(130, 32);
+            this.button15.Size = new System.Drawing.Size(173, 39);
             this.button15.TabIndex = 31;
             this.button15.Text = "Set Axis-c resting position:";
             this.button15.UseVisualStyleBackColor = true;
@@ -800,40 +792,37 @@ namespace vector_accelerator_project
             // label14
             // 
             this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label14.Location = new System.Drawing.Point(6, 112);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Location = new System.Drawing.Point(8, 138);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(260, 1);
+            this.label14.Size = new System.Drawing.Size(347, 1);
             this.label14.TabIndex = 35;
             this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // label15
             // 
             this.label15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label15.Location = new System.Drawing.Point(6, 5);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Location = new System.Drawing.Point(8, 6);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(260, 1);
+            this.label15.Size = new System.Drawing.Size(347, 1);
             this.label15.TabIndex = 36;
             // 
             // label19
             // 
             this.label19.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label19.Location = new System.Drawing.Point(6, 189);
-            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label19.Location = new System.Drawing.Point(8, 233);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(260, 1);
+            this.label19.Size = new System.Drawing.Size(347, 1);
             this.label19.TabIndex = 49;
             this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // PNAtabPage
             // 
             this.PNAtabPage.Controls.Add(this.tableLayoutPanelPNA);
-            this.PNAtabPage.Location = new System.Drawing.Point(4, 22);
-            this.PNAtabPage.Margin = new System.Windows.Forms.Padding(2);
+            this.PNAtabPage.Location = new System.Drawing.Point(4, 25);
+            this.PNAtabPage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PNAtabPage.Name = "PNAtabPage";
-            this.PNAtabPage.Padding = new System.Windows.Forms.Padding(2);
-            this.PNAtabPage.Size = new System.Drawing.Size(284, 353);
+            this.PNAtabPage.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.PNAtabPage.Size = new System.Drawing.Size(381, 437);
             this.PNAtabPage.TabIndex = 1;
             this.PNAtabPage.Text = "PNA";
             this.PNAtabPage.UseVisualStyleBackColor = true;
@@ -862,22 +851,23 @@ namespace vector_accelerator_project
             this.tableLayoutPanelPNA.Controls.Add(this.label22, 0, 9);
             this.tableLayoutPanelPNA.Controls.Add(this.numericUpDownIFBW, 1, 9);
             this.tableLayoutPanelPNA.Controls.Add(this.label23, 0, 8);
-            this.tableLayoutPanelPNA.Location = new System.Drawing.Point(11, 14);
+            this.tableLayoutPanelPNA.Location = new System.Drawing.Point(14, 17);
+            this.tableLayoutPanelPNA.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanelPNA.Name = "tableLayoutPanelPNA";
             this.tableLayoutPanelPNA.RowCount = 11;
             this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
-            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 11F));
+            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 14F));
             this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelPNA.Size = new System.Drawing.Size(242, 264);
+            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelPNA.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelPNA.Size = new System.Drawing.Size(324, 340);
             this.tableLayoutPanelPNA.TabIndex = 51;
             // 
             // numericUpDownAvg
@@ -885,9 +875,10 @@ namespace vector_accelerator_project
             this.numericUpDownAvg.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownAvg.Location = new System.Drawing.Point(106, 195);
+            this.numericUpDownAvg.Location = new System.Drawing.Point(142, 233);
+            this.numericUpDownAvg.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownAvg.Name = "numericUpDownAvg";
-            this.numericUpDownAvg.Size = new System.Drawing.Size(133, 20);
+            this.numericUpDownAvg.Size = new System.Drawing.Size(178, 22);
             this.numericUpDownAvg.TabIndex = 15;
             this.numericUpDownAvg.Value = new decimal(new int[] {
             1,
@@ -901,7 +892,8 @@ namespace vector_accelerator_project
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownStop.DecimalPlaces = 3;
-            this.numericUpDownStop.Location = new System.Drawing.Point(106, 29);
+            this.numericUpDownStop.Location = new System.Drawing.Point(142, 34);
+            this.numericUpDownStop.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownStop.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -913,7 +905,7 @@ namespace vector_accelerator_project
             0,
             0});
             this.numericUpDownStop.Name = "numericUpDownStop";
-            this.numericUpDownStop.Size = new System.Drawing.Size(133, 20);
+            this.numericUpDownStop.Size = new System.Drawing.Size(178, 22);
             this.numericUpDownStop.TabIndex = 11;
             this.numericUpDownStop.Value = new decimal(new int[] {
             2400,
@@ -926,9 +918,10 @@ namespace vector_accelerator_project
             this.labelStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStart.AutoSize = true;
-            this.labelStart.Location = new System.Drawing.Point(37, 0);
+            this.labelStart.Location = new System.Drawing.Point(59, 0);
+            this.labelStart.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStart.Name = "labelStart";
-            this.labelStart.Size = new System.Drawing.Size(63, 26);
+            this.labelStart.Size = new System.Drawing.Size(75, 30);
             this.labelStart.TabIndex = 0;
             this.labelStart.Text = "Start (MHz):";
             this.labelStart.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -938,9 +931,10 @@ namespace vector_accelerator_project
             this.labelStop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStop.AutoSize = true;
-            this.labelStop.Location = new System.Drawing.Point(37, 26);
+            this.labelStop.Location = new System.Drawing.Point(58, 30);
+            this.labelStop.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStop.Name = "labelStop";
-            this.labelStop.Size = new System.Drawing.Size(63, 26);
+            this.labelStop.Size = new System.Drawing.Size(76, 30);
             this.labelStop.TabIndex = 1;
             this.labelStop.Text = "Stop (MHz):";
             this.labelStop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -950,9 +944,10 @@ namespace vector_accelerator_project
             this.labelPoints.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPoints.AutoSize = true;
-            this.labelPoints.Location = new System.Drawing.Point(61, 52);
+            this.labelPoints.Location = new System.Drawing.Point(87, 60);
+            this.labelPoints.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelPoints.Name = "labelPoints";
-            this.labelPoints.Size = new System.Drawing.Size(39, 26);
+            this.labelPoints.Size = new System.Drawing.Size(47, 30);
             this.labelPoints.TabIndex = 2;
             this.labelPoints.Text = "Points:";
             this.labelPoints.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -963,7 +958,8 @@ namespace vector_accelerator_project
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownStart.DecimalPlaces = 3;
-            this.numericUpDownStart.Location = new System.Drawing.Point(106, 3);
+            this.numericUpDownStart.Location = new System.Drawing.Point(142, 4);
+            this.numericUpDownStart.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownStart.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -975,7 +971,7 @@ namespace vector_accelerator_project
             0,
             0});
             this.numericUpDownStart.Name = "numericUpDownStart";
-            this.numericUpDownStart.Size = new System.Drawing.Size(133, 20);
+            this.numericUpDownStart.Size = new System.Drawing.Size(178, 22);
             this.numericUpDownStart.TabIndex = 10;
             this.numericUpDownStart.Value = new decimal(new int[] {
             2400,
@@ -988,9 +984,10 @@ namespace vector_accelerator_project
             this.labelMeasure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMeasure.AutoSize = true;
-            this.labelMeasure.Location = new System.Drawing.Point(49, 98);
+            this.labelMeasure.Location = new System.Drawing.Point(71, 115);
+            this.labelMeasure.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelMeasure.Name = "labelMeasure";
-            this.labelMeasure.Size = new System.Drawing.Size(51, 27);
+            this.labelMeasure.Size = new System.Drawing.Size(63, 32);
             this.labelMeasure.TabIndex = 6;
             this.labelMeasure.Text = "Measure:";
             this.labelMeasure.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1001,9 +998,10 @@ namespace vector_accelerator_project
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMeasure.FormattingEnabled = true;
-            this.comboBoxMeasure.Location = new System.Drawing.Point(106, 101);
+            this.comboBoxMeasure.Location = new System.Drawing.Point(142, 119);
+            this.comboBoxMeasure.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxMeasure.Name = "comboBoxMeasure";
-            this.comboBoxMeasure.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxMeasure.Size = new System.Drawing.Size(178, 24);
             this.comboBoxMeasure.TabIndex = 13;
             // 
             // label16
@@ -1011,9 +1009,10 @@ namespace vector_accelerator_project
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(58, 125);
+            this.label16.Location = new System.Drawing.Point(82, 147);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(42, 27);
+            this.label16.Size = new System.Drawing.Size(52, 32);
             this.label16.TabIndex = 8;
             this.label16.Text = "Format:";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1024,9 +1023,10 @@ namespace vector_accelerator_project
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFormat.FormattingEnabled = true;
-            this.comboBoxFormat.Location = new System.Drawing.Point(106, 128);
+            this.comboBoxFormat.Location = new System.Drawing.Point(142, 151);
+            this.comboBoxFormat.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxFormat.Name = "comboBoxFormat";
-            this.comboBoxFormat.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxFormat.Size = new System.Drawing.Size(178, 24);
             this.comboBoxFormat.TabIndex = 14;
             // 
             // numericUpDownPoints
@@ -1039,7 +1039,8 @@ namespace vector_accelerator_project
             0,
             0,
             0});
-            this.numericUpDownPoints.Location = new System.Drawing.Point(106, 55);
+            this.numericUpDownPoints.Location = new System.Drawing.Point(142, 64);
+            this.numericUpDownPoints.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownPoints.Maximum = new decimal(new int[] {
             16001,
             0,
@@ -1051,7 +1052,7 @@ namespace vector_accelerator_project
             0,
             0});
             this.numericUpDownPoints.Name = "numericUpDownPoints";
-            this.numericUpDownPoints.Size = new System.Drawing.Size(133, 20);
+            this.numericUpDownPoints.Size = new System.Drawing.Size(178, 22);
             this.numericUpDownPoints.TabIndex = 12;
             this.numericUpDownPoints.Value = new decimal(new int[] {
             1600,
@@ -1064,9 +1065,10 @@ namespace vector_accelerator_project
             // 
             this.SelectCST.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SelectCST.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectCST.Location = new System.Drawing.Point(106, 155);
+            this.SelectCST.Location = new System.Drawing.Point(142, 183);
+            this.SelectCST.Margin = new System.Windows.Forms.Padding(4);
             this.SelectCST.Name = "SelectCST";
-            this.SelectCST.Size = new System.Drawing.Size(133, 23);
+            this.SelectCST.Size = new System.Drawing.Size(178, 28);
             this.SelectCST.TabIndex = 17;
             this.SelectCST.Text = "None (NOT working)";
             this.SelectCST.UseVisualStyleBackColor = true;
@@ -1075,9 +1077,10 @@ namespace vector_accelerator_project
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.Location = new System.Drawing.Point(38, 152);
+            this.label17.Location = new System.Drawing.Point(51, 179);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(62, 29);
+            this.label17.Size = new System.Drawing.Size(83, 36);
             this.label17.TabIndex = 18;
             this.label17.Text = "Cal. Set:";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1086,9 +1089,10 @@ namespace vector_accelerator_project
             // 
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label22.Location = new System.Drawing.Point(35, 224);
+            this.label22.Location = new System.Drawing.Point(47, 268);
+            this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(65, 20);
+            this.label22.Size = new System.Drawing.Size(87, 25);
             this.label22.TabIndex = 20;
             this.label22.Text = "IFBW (Hz):";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1098,14 +1102,15 @@ namespace vector_accelerator_project
             this.numericUpDownIFBW.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownIFBW.Location = new System.Drawing.Point(106, 227);
+            this.numericUpDownIFBW.Location = new System.Drawing.Point(142, 272);
+            this.numericUpDownIFBW.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownIFBW.Maximum = new decimal(new int[] {
             1000000,
             0,
             0,
             0});
             this.numericUpDownIFBW.Name = "numericUpDownIFBW";
-            this.numericUpDownIFBW.Size = new System.Drawing.Size(133, 20);
+            this.numericUpDownIFBW.Size = new System.Drawing.Size(178, 22);
             this.numericUpDownIFBW.TabIndex = 19;
             this.numericUpDownIFBW.Value = new decimal(new int[] {
             100,
@@ -1117,9 +1122,10 @@ namespace vector_accelerator_project
             // 
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label23.Location = new System.Drawing.Point(35, 192);
+            this.label23.Location = new System.Drawing.Point(47, 229);
+            this.label23.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(65, 32);
+            this.label23.Size = new System.Drawing.Size(87, 39);
             this.label23.TabIndex = 16;
             this.label23.Text = "Avg. Factor:";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1127,10 +1133,10 @@ namespace vector_accelerator_project
             // button13
             // 
             this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button13.Location = new System.Drawing.Point(26, 416);
-            this.button13.Margin = new System.Windows.Forms.Padding(2);
+            this.button13.Location = new System.Drawing.Point(35, 512);
+            this.button13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(128, 37);
+            this.button13.Size = new System.Drawing.Size(171, 46);
             this.button13.TabIndex = 32;
             this.button13.Text = "Start Movement";
             this.button13.UseVisualStyleBackColor = true;
@@ -1139,10 +1145,10 @@ namespace vector_accelerator_project
             // manualButton
             // 
             this.manualButton.AutoSize = true;
-            this.manualButton.Location = new System.Drawing.Point(58, 16);
-            this.manualButton.Margin = new System.Windows.Forms.Padding(2);
+            this.manualButton.Location = new System.Drawing.Point(77, 20);
+            this.manualButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.manualButton.Name = "manualButton";
-            this.manualButton.Size = new System.Drawing.Size(86, 17);
+            this.manualButton.Size = new System.Drawing.Size(103, 20);
             this.manualButton.TabIndex = 33;
             this.manualButton.TabStop = true;
             this.manualButton.Text = "Manual input";
@@ -1152,21 +1158,20 @@ namespace vector_accelerator_project
             // label9
             // 
             this.label9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label9.Location = new System.Drawing.Point(349, 16);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(465, 20);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(1, 364);
+            this.label9.Size = new System.Drawing.Size(1, 448);
             this.label9.TabIndex = 25;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(370, 15);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox4.Location = new System.Drawing.Point(493, 18);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox4.Size = new System.Drawing.Size(283, 367);
+            this.textBox4.Size = new System.Drawing.Size(376, 451);
             this.textBox4.TabIndex = 25;
             this.textBox4.Text = "Click on button once input has been added. Allows multi intermediate points. This" +
     " textbox displays our parameter values";
@@ -1175,10 +1180,10 @@ namespace vector_accelerator_project
             // segmentButton
             // 
             this.segmentButton.AutoSize = true;
-            this.segmentButton.Location = new System.Drawing.Point(155, 16);
-            this.segmentButton.Margin = new System.Windows.Forms.Padding(2);
+            this.segmentButton.Location = new System.Drawing.Point(207, 20);
+            this.segmentButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.segmentButton.Name = "segmentButton";
-            this.segmentButton.Size = new System.Drawing.Size(93, 17);
+            this.segmentButton.Size = new System.Drawing.Size(113, 20);
             this.segmentButton.TabIndex = 34;
             this.segmentButton.Text = "Segment input";
             this.segmentButton.UseVisualStyleBackColor = true;
@@ -1187,19 +1192,18 @@ namespace vector_accelerator_project
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(12, 16);
-            this.label20.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label20.Location = new System.Drawing.Point(16, 20);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(37, 13);
+            this.label20.Size = new System.Drawing.Size(45, 16);
             this.label20.TabIndex = 50;
             this.label20.Text = "Mode:";
             // 
             // returnOriginButton
             // 
-            this.returnOriginButton.Location = new System.Drawing.Point(970, 3);
-            this.returnOriginButton.Margin = new System.Windows.Forms.Padding(2);
+            this.returnOriginButton.Location = new System.Drawing.Point(1293, 4);
+            this.returnOriginButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.returnOriginButton.Name = "returnOriginButton";
-            this.returnOriginButton.Size = new System.Drawing.Size(89, 22);
+            this.returnOriginButton.Size = new System.Drawing.Size(119, 27);
             this.returnOriginButton.TabIndex = 29;
             this.returnOriginButton.Text = "Return to Origin";
             this.returnOriginButton.UseVisualStyleBackColor = true;
@@ -1207,11 +1211,11 @@ namespace vector_accelerator_project
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(900, 205);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox1.Location = new System.Drawing.Point(1200, 252);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(301, 207);
+            this.richTextBox1.Size = new System.Drawing.Size(400, 254);
             this.richTextBox1.TabIndex = 32;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -1219,11 +1223,11 @@ namespace vector_accelerator_project
             // configBox
             // 
             this.configBox.Controls.Add(this.tabControl2);
-            this.configBox.Location = new System.Drawing.Point(756, 29);
-            this.configBox.Margin = new System.Windows.Forms.Padding(2);
+            this.configBox.Location = new System.Drawing.Point(1008, 36);
+            this.configBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.configBox.Name = "configBox";
-            this.configBox.Padding = new System.Windows.Forms.Padding(2);
-            this.configBox.Size = new System.Drawing.Size(303, 169);
+            this.configBox.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.configBox.Size = new System.Drawing.Size(404, 208);
             this.configBox.TabIndex = 43;
             this.configBox.TabStop = false;
             this.configBox.Text = "Settings";
@@ -1233,11 +1237,11 @@ namespace vector_accelerator_project
             // 
             this.tabControl2.Controls.Add(this.StartupConfig);
             this.tabControl2.Controls.Add(this.tabPage2);
-            this.tabControl2.Location = new System.Drawing.Point(4, 15);
-            this.tabControl2.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl2.Location = new System.Drawing.Point(5, 18);
+            this.tabControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(295, 150);
+            this.tabControl2.Size = new System.Drawing.Size(393, 185);
             this.tabControl2.TabIndex = 45;
             // 
             // StartupConfig
@@ -1250,11 +1254,11 @@ namespace vector_accelerator_project
             this.StartupConfig.Controls.Add(this.textBox8);
             this.StartupConfig.Controls.Add(this.mmButton);
             this.StartupConfig.Controls.Add(this.label21);
-            this.StartupConfig.Location = new System.Drawing.Point(4, 22);
-            this.StartupConfig.Margin = new System.Windows.Forms.Padding(2);
+            this.StartupConfig.Location = new System.Drawing.Point(4, 25);
+            this.StartupConfig.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.StartupConfig.Name = "StartupConfig";
-            this.StartupConfig.Padding = new System.Windows.Forms.Padding(2);
-            this.StartupConfig.Size = new System.Drawing.Size(287, 124);
+            this.StartupConfig.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.StartupConfig.Size = new System.Drawing.Size(385, 156);
             this.StartupConfig.TabIndex = 0;
             this.StartupConfig.Text = "Startup Config";
             this.StartupConfig.UseVisualStyleBackColor = true;
@@ -1262,10 +1266,10 @@ namespace vector_accelerator_project
             // 
             // button25
             // 
-            this.button25.Location = new System.Drawing.Point(124, 101);
-            this.button25.Margin = new System.Windows.Forms.Padding(2);
+            this.button25.Location = new System.Drawing.Point(165, 124);
+            this.button25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(50, 19);
+            this.button25.Size = new System.Drawing.Size(67, 23);
             this.button25.TabIndex = 53;
             this.button25.Text = "axis-c";
             this.button25.UseVisualStyleBackColor = true;
@@ -1274,19 +1278,18 @@ namespace vector_accelerator_project
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(13, 9);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Location = new System.Drawing.Point(17, 11);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(77, 13);
+            this.label13.Size = new System.Drawing.Size(92, 16);
             this.label13.TabIndex = 48;
             this.label13.Text = "Unit of Choice:";
             // 
             // button24
             // 
-            this.button24.Location = new System.Drawing.Point(70, 101);
-            this.button24.Margin = new System.Windows.Forms.Padding(2);
+            this.button24.Location = new System.Drawing.Point(93, 124);
+            this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(50, 19);
+            this.button24.Size = new System.Drawing.Size(67, 23);
             this.button24.TabIndex = 52;
             this.button24.Text = "axis-b";
             this.button24.UseVisualStyleBackColor = true;
@@ -1295,10 +1298,10 @@ namespace vector_accelerator_project
             // stepperButton
             // 
             this.stepperButton.AutoSize = true;
-            this.stepperButton.Location = new System.Drawing.Point(15, 44);
-            this.stepperButton.Margin = new System.Windows.Forms.Padding(2);
+            this.stepperButton.Location = new System.Drawing.Point(20, 54);
+            this.stepperButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.stepperButton.Name = "stepperButton";
-            this.stepperButton.Size = new System.Drawing.Size(89, 17);
+            this.stepperButton.Size = new System.Drawing.Size(109, 20);
             this.stepperButton.TabIndex = 47;
             this.stepperButton.TabStop = true;
             this.stepperButton.Text = "Stepper Units";
@@ -1307,10 +1310,10 @@ namespace vector_accelerator_project
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(16, 101);
-            this.button23.Margin = new System.Windows.Forms.Padding(2);
+            this.button23.Location = new System.Drawing.Point(21, 124);
+            this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(50, 19);
+            this.button23.Size = new System.Drawing.Size(67, 23);
             this.button23.TabIndex = 51;
             this.button23.Text = "axis-a";
             this.button23.UseVisualStyleBackColor = true;
@@ -1318,20 +1321,20 @@ namespace vector_accelerator_project
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(16, 80);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox8.Location = new System.Drawing.Point(21, 98);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(158, 20);
+            this.textBox8.Size = new System.Drawing.Size(209, 22);
             this.textBox8.TabIndex = 49;
             this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // mmButton
             // 
             this.mmButton.AutoSize = true;
-            this.mmButton.Location = new System.Drawing.Point(15, 24);
-            this.mmButton.Margin = new System.Windows.Forms.Padding(2);
+            this.mmButton.Location = new System.Drawing.Point(20, 30);
+            this.mmButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.mmButton.Name = "mmButton";
-            this.mmButton.Size = new System.Drawing.Size(42, 17);
+            this.mmButton.Size = new System.Drawing.Size(50, 20);
             this.mmButton.TabIndex = 46;
             this.mmButton.TabStop = true;
             this.mmButton.Text = "Mm";
@@ -1341,12 +1344,11 @@ namespace vector_accelerator_project
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(13, 65);
-            this.label21.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label21.Location = new System.Drawing.Point(17, 80);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(150, 13);
+            this.label21.Size = new System.Drawing.Size(154, 16);
             this.label21.TabIndex = 50;
-            this.label21.Text = "Slew Speed (Stepper Units/s):";
+            this.label21.Text = "Speed (Stepper Units/s):";
             this.label21.Click += new System.EventHandler(this.label21_Click);
             // 
             // tabPage2
@@ -1356,32 +1358,32 @@ namespace vector_accelerator_project
             this.tabPage2.Controls.Add(this.button14);
             this.tabPage2.Controls.Add(this.unitCalibrateTextBox);
             this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(287, 124);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabPage2.Size = new System.Drawing.Size(385, 156);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Calibration (reset on close)";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(19, 77);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox2.Location = new System.Drawing.Point(25, 95);
+            this.richTextBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.Size = new System.Drawing.Size(168, 46);
+            this.richTextBox2.Size = new System.Drawing.Size(223, 56);
             this.richTextBox2.TabIndex = 55;
             this.richTextBox2.Text = "Default values:\nAxis-a, Axis-b: 250\nAxis-c: 25000\n\n\n\n\n\n\n\n\n";
             this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             // 
             // button26
             // 
-            this.button26.Location = new System.Drawing.Point(184, 38);
-            this.button26.Margin = new System.Windows.Forms.Padding(2);
+            this.button26.Location = new System.Drawing.Point(245, 47);
+            this.button26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(79, 35);
+            this.button26.Size = new System.Drawing.Size(105, 43);
             this.button26.TabIndex = 54;
             this.button26.Text = "Axis-a/Axis-b Set";
             this.button26.UseVisualStyleBackColor = true;
@@ -1389,10 +1391,10 @@ namespace vector_accelerator_project
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(123, 38);
-            this.button14.Margin = new System.Windows.Forms.Padding(2);
+            this.button14.Location = new System.Drawing.Point(164, 47);
+            this.button14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(57, 35);
+            this.button14.Size = new System.Drawing.Size(76, 43);
             this.button14.TabIndex = 53;
             this.button14.Text = "Axis-c\r\nSet";
             this.button14.UseVisualStyleBackColor = true;
@@ -1400,20 +1402,19 @@ namespace vector_accelerator_project
             // 
             // unitCalibrateTextBox
             // 
-            this.unitCalibrateTextBox.Location = new System.Drawing.Point(132, 16);
-            this.unitCalibrateTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.unitCalibrateTextBox.Location = new System.Drawing.Point(176, 20);
+            this.unitCalibrateTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.unitCalibrateTextBox.Name = "unitCalibrateTextBox";
-            this.unitCalibrateTextBox.Size = new System.Drawing.Size(94, 20);
+            this.unitCalibrateTextBox.Size = new System.Drawing.Size(124, 22);
             this.unitCalibrateTextBox.TabIndex = 51;
             this.unitCalibrateTextBox.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 18);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Location = new System.Drawing.Point(16, 22);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(120, 13);
+            this.label11.Size = new System.Drawing.Size(147, 16);
             this.label11.TabIndex = 52;
             this.label11.Text = "Stepper units/mm (INT):";
             this.label11.Click += new System.EventHandler(this.label11_Click);
@@ -1427,19 +1428,28 @@ namespace vector_accelerator_project
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(1072, 652);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox6.Location = new System.Drawing.Point(1429, 802);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(152, 20);
+            this.textBox6.Size = new System.Drawing.Size(201, 22);
             this.textBox6.TabIndex = 44;
             this.textBox6.Text = "Made by Patrick Kon 2019";
             // 
+            // debugTextBox
+            // 
+            this.debugTextBox.Location = new System.Drawing.Point(1206, 540);
+            this.debugTextBox.Name = "debugTextBox";
+            this.debugTextBox.Size = new System.Drawing.Size(394, 155);
+            this.debugTextBox.TabIndex = 45;
+            this.debugTextBox.Text = "";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1235, 696);
+            this.ClientSize = new System.Drawing.Size(1647, 857);
+            this.Controls.Add(this.debugTextBox);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.configBox);
             this.Controls.Add(this.richTextBox1);
@@ -1453,7 +1463,7 @@ namespace vector_accelerator_project
             this.Controls.Add(this.originButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Surface Scan 2.0";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1598,6 +1608,7 @@ namespace vector_accelerator_project
         private Button button26;
         private RichTextBox richTextBox2;
         private Button btnStop;
+        private RichTextBox debugTextBox;
     }
 }
 
