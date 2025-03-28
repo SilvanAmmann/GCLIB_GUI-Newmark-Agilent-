@@ -400,6 +400,7 @@ namespace vector_accelerator_project
     {
         private Form1 form;
         private gclib gclib;
+        private string retCode;
 
         public MoveFactory(Form1 form, gclib gclib)
         {
@@ -446,6 +447,10 @@ namespace vector_accelerator_project
                 form.printTextBox1("Ok");
                 gclib.GCommand("PR" + axis + "=" + distance_units);
 
+                // for test purposes only
+                retCode = gclib.GCommand("IA?");
+                form.printTextBox1("OE on? " + axis + ": " + retCode); // test purpose only
+
                 //might implement speed control parameter in future
                 gclib.GCommand("SP" + axis + "=" + speed);
                 form.printTextBox1("Profiling a move on axis" + axis + "... ");
@@ -481,6 +486,12 @@ namespace vector_accelerator_project
             runAbsoluteMoveCommand("C", 0, movementVariables.Speed_c);
             form.printTextBox1("Move back to origin successful!");
         }
+
+        // Stop current Movement, Note: does not work as intendet
+        public void stopMovement(MovementVariables movementVariables)
+        {
+            gclib.GCommand("ST");
+        }
     }
 
     // Currently supports both manual and segmented movement:
@@ -511,6 +522,11 @@ namespace vector_accelerator_project
         public void runRelativeMoveCommand(string axis, int distance_units, int speed)
         {
             moveFactory.runRelativeMoveCommand(axis, distance_units, speed);
+        }
+
+        public void stopMovement(MovementVariables movementVariables)
+        {
+            moveFactory.stopMovement(movementVariables);
         }
     }
     

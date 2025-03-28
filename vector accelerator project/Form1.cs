@@ -136,6 +136,7 @@ namespace vector_accelerator_project
             DisconnectStripButton.Enabled = false; groupBox1.Enabled = false;
             GeneralGroup.Enabled = false; configBox.Enabled = false;
             originButton.Enabled = false; returnOriginButton.Enabled = false;
+            btnStop.Enabled = false;
         }
         #endregion
 
@@ -1056,8 +1057,10 @@ namespace vector_accelerator_project
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            // Request cancellation
+            // Cancel current measurment
             _cancellationTokenSource?.Cancel();
+            // Stop motor movement imedately
+            //movementType.stopMovement(movementVariables); not used because does not work as intended, it only stops the current axis-move.
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
