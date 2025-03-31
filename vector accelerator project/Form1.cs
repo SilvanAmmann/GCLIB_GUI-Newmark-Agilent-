@@ -784,19 +784,19 @@ namespace vector_accelerator_project
         // Segment movement: C (start) button:
         private void button27_Click(object sender, EventArgs e)
         {
-
+            segment_position_insert(6);
         }
 
         // Segment movement: C (end) button:
         private void button28_Click(object sender, EventArgs e)
         {
-
+            segment_position_insert(7);
         }
 
         // Segment movement: C (delta) button:
         private void button29_Click(object sender, EventArgs e)
         {
-
+            segment_position_insert(8);
         }
 
         // Segment movement: reset all segments button:

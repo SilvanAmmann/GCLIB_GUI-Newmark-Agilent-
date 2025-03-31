@@ -52,7 +52,7 @@ namespace vector_accelerator_project
             //Intermediate_positions.Add(new int[2] { 0, 0 });
 
             Segment_positions = new List<int[]>();
-            Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 }); // Will be filled with the segment/grid parameters.
+            Segment_positions.Add(new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0}); // Will be filled with the segment/grid parameters.
 
 
             //Variables that store other parameters:
