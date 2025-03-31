@@ -136,7 +136,6 @@ namespace vector_accelerator_project
             this.label11 = new System.Windows.Forms.Label();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.debugTextBox = new System.Windows.Forms.RichTextBox();
             this.MainToolStrip.SuspendLayout();
             this.GeneralGroup.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1337,7 +1336,7 @@ namespace vector_accelerator_project
             this.mmButton.Size = new System.Drawing.Size(50, 20);
             this.mmButton.TabIndex = 46;
             this.mmButton.TabStop = true;
-            this.mmButton.Text = "Mm";
+            this.mmButton.Text = "mm";
             this.mmButton.UseVisualStyleBackColor = true;
             this.mmButton.CheckedChanged += new System.EventHandler(this.mmButton_CheckedChanged);
             // 
@@ -1346,9 +1345,9 @@ namespace vector_accelerator_project
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(17, 80);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(154, 16);
+            this.label21.Size = new System.Drawing.Size(186, 16);
             this.label21.TabIndex = 50;
-            this.label21.Text = "Speed (Stepper Units/s):";
+            this.label21.Text = "Slew Speed (Stepper Units/s):";
             this.label21.Click += new System.EventHandler(this.label21_Click);
             // 
             // tabPage2
@@ -1435,21 +1434,12 @@ namespace vector_accelerator_project
             this.textBox6.TabIndex = 44;
             this.textBox6.Text = "Made by Patrick Kon 2019";
             // 
-            // debugTextBox
-            // 
-            this.debugTextBox.Location = new System.Drawing.Point(1206, 540);
-            this.debugTextBox.Name = "debugTextBox";
-            this.debugTextBox.Size = new System.Drawing.Size(394, 155);
-            this.debugTextBox.TabIndex = 45;
-            this.debugTextBox.Text = "";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1647, 857);
-            this.Controls.Add(this.debugTextBox);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.configBox);
             this.Controls.Add(this.richTextBox1);
@@ -1608,7 +1598,6 @@ namespace vector_accelerator_project
         private Button button26;
         private RichTextBox richTextBox2;
         private Button btnStop;
-        private RichTextBox debugTextBox;
     }
 }
 

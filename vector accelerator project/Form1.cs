@@ -54,7 +54,6 @@ namespace vector_accelerator_project
 
         //Retrieve absolute position of gantry (Axes a,b, c):
         //Note that retrieval can only be done when the gantry is no longer moving.
-        // 19/12/19: this is a function I did not modify. 
         private void cur_abs_pos(int[] abs_position)
         {
             try
@@ -202,13 +201,13 @@ namespace vector_accelerator_project
                 {
                     movementVariables = new MovementVariables_mmUnit();
                     label5.Text = "Distance in\r\nmm (>1mm):\r\n";
-                    label21.Text = "Speed (mm/s):";
+                    label21.Text = "Slew Speed (mm/s):";
                 }
                 else if (stepperButton.Checked)
                 {
                     movementVariables = new MovementVariables_stepperUnit();
                     label5.Text = "Distance in\r\nStepper Units (>300):\r\n";
-                    label21.Text = "Speed (Stepper Units/s):";
+                    label21.Text = "Slew Speed (Stepper Units/s):";
                 }
 
                 // UPDATE 30/4/20:
@@ -349,11 +348,6 @@ namespace vector_accelerator_project
         public void printTextBox1(string a, PrintStyle printStyle = PrintStyle.Normal)
         {
             PrintOutput(textBox1, a, printStyle, true);
-        }
-
-        public void printdebugTextBox(string a, PrintStyle printStyle = PrintStyle.Normal)
-        {
-            PrintOutput(debugTextBox, a, printStyle, true);
         }
         #endregion
 
@@ -690,8 +684,8 @@ namespace vector_accelerator_project
             if (e.KeyChar == (char)13)
             {
                 // Enter key pressed. Now do:
-                int value = 10; // self determined default value in mm
-                Int32.TryParse(unitbox.Text, out value);
+                float value = 10; // self determined default value in mm
+                float.TryParse(unitbox.Text, out value);
                 movementVariables.Increment_unit_a = value;
                 movementVariables.Increment_unit_b = value;
                 movementVariables.Increment_unit_c = value;

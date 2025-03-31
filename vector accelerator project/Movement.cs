@@ -30,9 +30,9 @@ namespace vector_accelerator_project
         public virtual int Axis_c_drop_by { get; set; }  //axis-c drop by how many units while sampling
         public virtual int Axis_c_rest_position { get; set; }
 
-        public virtual int Increment_unit_a { get; set; }
-        public virtual int Increment_unit_b { get; set; }
-        public virtual int Increment_unit_c { get; set; }
+        public virtual float Increment_unit_a { get; set; }
+        public virtual float Increment_unit_b { get; set; }
+        public virtual float Increment_unit_c { get; set; }
         public virtual int Speed_a { get; set; } //recommended speed
         public virtual int Speed_b { get; set; } //recommended speed
         public virtual int Speed_c { get; set; } //recommended speed
@@ -270,9 +270,9 @@ namespace vector_accelerator_project
         //Variables that store other parameters:
         private int axis_c_drop_by;
         private int axis_c_rest_position;
-        private int increment_unit_a;
-        private int increment_unit_b;
-        private int increment_unit_c;
+        private float increment_unit_a;
+        private float increment_unit_b;
+        private float increment_unit_c;
         private int speed_a;
         private int speed_b;
         private int speed_c;
@@ -288,18 +288,18 @@ namespace vector_accelerator_project
             set => axis_c_rest_position = value * mmToStepper_unitAxisC;
         }
 
-        public override int Increment_unit_a
+        public override float Increment_unit_a
         {
             get => increment_unit_a;
             set => increment_unit_a = value * mmToStepper_unitAxisAB;
         }
 
-        public override int Increment_unit_b
+        public override float Increment_unit_b
         {
             get => increment_unit_b;
             set => increment_unit_b = value * mmToStepper_unitAxisAB;
         }
-        public override int Increment_unit_c
+        public override float Increment_unit_c
         {
             get => increment_unit_c;
             set => increment_unit_c = value * mmToStepper_unitAxisC;
@@ -413,22 +413,18 @@ namespace vector_accelerator_project
         {
             try
             {
-                form.printTextBox1("Preparing " + axis + " axis for PA movement. This could cause errors if the axis is not initialized...");
+                //form.printTextBox1("Preparing " + axis + " axis for PA movement. This could cause errors if the axis is not initialized...");
                 gclib.GCommand("MO;SH" + axis);  // removed the AB; (abort) command at the begining, because it is suspected to cause problems.
                 //compound commands are possible though typically not recommended
-                form.printTextBox1("Ok");
+                //form.printTextBox1("Ok");
                 gclib.GCommand("PA" + axis + "=" + distance_units);
-
                 //might implement speed control parameter in future
                 gclib.GCommand("SP" + axis + "=" + speed);
-                form.printTextBox1("Profiling a move on axis" + axis + "... ");
+                //form.printTextBox1("Profiling a move on axis" + axis + "... ");
                 gclib.GCommand("BG" + axis);
-                form.printTextBox1("Waiting for motion to complete... ");
+                //form.printTextBox1("Waiting for motion to complete... ");
                 gclib.GMotionComplete(axis);
-                form.printTextBox1("done");
-                //update absolute position and display in textBox2:
-                //System.Threading.Thread.Sleep(200); // maybe pausing first might fix this error
-                //cur_abs_pos(abs_position);  // as stated in Master, this is commented as it has been identified as the source of neg move problem
+                //form.printTextBox1("done");
             }
             catch (Exception ex)
             {
@@ -437,29 +433,23 @@ namespace vector_accelerator_project
         }
         //Note to self: axis must be in Capital letters.
         //Simple PR movement:
-        public void runRelativeMoveCommand(string axis, int distance_units, int speed)
+        public void runRelativeMoveCommand(string axis, float distance_units, int speed)
         {
             try
             {
-                form.printTextBox1("Preparing " + axis + " axis for PR movement. This could cause errors if the axis is not initialized...");
+                //form.printTextBox1("Preparing " + axis + " axis for PR movement. This could cause errors if the axis is not initialized...");
                 gclib.GCommand("MO;SH" + axis);
                 //compound commands are possible though typically not recommended
-                form.printTextBox1("Ok");
-                gclib.GCommand("PR" + axis + "=" + distance_units);
-
-                // for test purposes only
-                retCode = gclib.GCommand("IA?");
-                form.printTextBox1("OE on? " + axis + ": " + retCode); // test purpose only
-
+                //form.printTextBox1("Ok");
+                gclib.GCommand("PR" + axis + "=" + (Int32)Math.Round(distance_units));
                 //might implement speed control parameter in future
                 gclib.GCommand("SP" + axis + "=" + speed);
-                form.printTextBox1("Profiling a move on axis" + axis + "... ");
+                //form.printTextBox1("Profiling a move on axis" + axis + "... ");
                 gclib.GCommand("BG" + axis);
-                form.printTextBox1("Waiting for motion to complete... ");
+                //form.printTextBox1("Waiting for motion to complete... ");
                 gclib.GMotionComplete(axis);
-                form.printTextBox1("done");
-                //update absolute position and display in textBox2:
-                //cur_abs_pos(abs_position);  // as stated in Master, this is commented as it has been identified as the source of neg move problem
+                //form.printTextBox1("done");
+                
             }
             catch (Exception ex)
             {
@@ -484,7 +474,6 @@ namespace vector_accelerator_project
             runAbsoluteMoveCommand("A", 0, movementVariables.Speed_a);
             runAbsoluteMoveCommand("B", 0, movementVariables.Speed_b);
             runAbsoluteMoveCommand("C", 0, movementVariables.Speed_c);
-            form.printTextBox1("Move back to origin successful!");
         }
 
         // Stop current Movement, Note: does not work as intendet
@@ -519,7 +508,7 @@ namespace vector_accelerator_project
             moveFactory.goHome(movementVariables);
         }
 
-        public void runRelativeMoveCommand(string axis, int distance_units, int speed)
+        public void runRelativeMoveCommand(string axis, float distance_units, int speed)
         {
             moveFactory.runRelativeMoveCommand(axis, distance_units, speed);
         }
@@ -592,7 +581,6 @@ namespace vector_accelerator_project
         public void move(MovementVariables movementVariables, CancellationToken cancellationToken)
         {
             int counter = 0; // indicates how many segments have been processed.
-            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             var timer = System.Diagnostics.Stopwatch.StartNew();
             movementVariables.Segment_positions?.ForEach(a =>
             {
@@ -618,15 +606,12 @@ namespace vector_accelerator_project
                         movementVariables.Start_position[0] = multiplier * a[2] + a[0];
                         movementVariables.Start_position[1] = multiplier * a[5] + a[3];                                 
                         multiplier += 1;
-                        //if ( (start_position[0] < 0 && (Math.Abs(start_position[0]) > Math.Abs(a[1])  || Math.Abs(start_position[1]) > Math.Abs(a[4])) ) || (start_position[0] < 0 && (Math.Abs(start_position[0]) > Math.Abs(a[1]) || Math.Abs(start_position[1]) > Math.Abs(a[4])))) break;
-                        stopwatch.Restart();
+
+                        // move gantry
                         moveFactory.special_move_helper(movementVariables.Start_position, movementVariables);
-                        form.printdebugTextBox($"Move took: {stopwatch.ElapsedMilliseconds}ms");
-                        //
+                        
                         // i add VNA stuff in now:
-                        stopwatch.Restart();
                         analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
-                        form.printdebugTextBox($"Scan took: {stopwatch.ElapsedMilliseconds}ms");
 
                         if (movementVariables.Start_position[0] == a[1] && movementVariables.Start_position[1] == a[4]) break;                      
                     }
@@ -635,7 +620,7 @@ namespace vector_accelerator_project
             });
             // return to original axis-c rest position before ending movement:
             moveFactory.runAbsoluteMoveCommand("C", movementVariables.Axis_c_rest_position, movementVariables.Speed_c);
-            form.printdebugTextBox($"Grid measurement took: {timer.ElapsedMilliseconds/1000}s");
+            form.printTextBox1($"Grid measurement took: {timer.ElapsedMilliseconds/1000}s\n");
         }
 
     }
