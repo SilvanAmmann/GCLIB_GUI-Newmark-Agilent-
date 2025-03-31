@@ -746,7 +746,7 @@ namespace vector_accelerator_project
         }
 
         // Segment movement: A (start) button:
-        private void button12_Click(object sender, EventArgs e)
+        private void btnAStart_Click(object sender, EventArgs e)
         {
             segment_position_insert(0);
         }
@@ -779,6 +779,24 @@ namespace vector_accelerator_project
         private void button20_Click(object sender, EventArgs e)
         {
             segment_position_insert(5);
+        }
+
+        // Segment movement: C (start) button:
+        private void button27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Segment movement: C (end) button:
+        private void button28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Segment movement: C (delta) button:
+        private void button29_Click(object sender, EventArgs e)
+        {
+
         }
 
         // Segment movement: reset all segments button:
@@ -1068,6 +1086,11 @@ namespace vector_accelerator_project
         }
 
         private void label21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label18_Click(object sender, EventArgs e)
         {
 
         }
