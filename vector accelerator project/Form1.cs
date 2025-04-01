@@ -275,7 +275,8 @@ namespace vector_accelerator_project
                 {
                     textBox4.Text += "Segment " + counter + ".. " + Environment.NewLine;
                     textBox4.Text += "A(start): " + a[0] + ", A(end): " + a[1] + ", delta A: " + a[2] + Environment.NewLine;
-                    textBox4.Text += "B(start): " + a[3] + ", B(end): " + a[4] + ", delta B: " + a[5] + Environment.NewLine + Environment.NewLine;
+                    textBox4.Text += "B(start): " + a[3] + ", B(end): " + a[4] + ", delta B: " + a[5] + Environment.NewLine;
+                    textBox4.Text += "C(start): " + a[6] + ", C(end): " + a[7] + ", delta C: " + a[8] + Environment.NewLine + Environment.NewLine;
                     counter += 1;
                 }
             });
@@ -285,8 +286,9 @@ namespace vector_accelerator_project
                 int[] b = movementVariables.Segment_positions.Last();
                 textBox4.Text += "Current segment input.. : " + Environment.NewLine;
                 textBox4.Text += "A(start): " + b[0] + ", A(end): " + b[1] + ", delta A: " + b[2] + Environment.NewLine;
-                textBox4.Text += "B(start): " + b[3] + ", B(end): " + b[4] + ", delta B: " + b[5] + Environment.NewLine + Environment.NewLine;
-                
+                textBox4.Text += "B(start): " + b[3] + ", B(end): " + b[4] + ", delta B: " + b[5] + Environment.NewLine;
+                textBox4.Text += "C(start): " + b[6] + ", C(end): " + b[7] + ", delta C: " + b[8] + Environment.NewLine + Environment.NewLine;
+
             }
             textBox4.Text += "Drop bar by (units): " + movementVariables.Axis_c_drop_by + Environment.NewLine;
             textBox4.Text += "Axis-c resting position: " + movementVariables.Axis_c_rest_position + Environment.NewLine;

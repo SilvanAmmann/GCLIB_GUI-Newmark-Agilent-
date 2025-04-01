@@ -96,7 +96,7 @@ namespace vector_accelerator_project
                 {
                     if (((Segment_positions.Last()[4] - Segment_positions.Last()[3]) % Segment_positions.Last()[5] == 0))
                     {
-                        Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 });
+                        Segment_positions.Add(new int[9] {0, 0, 0, 0, 0, 0, 0, 0, 0});
                         display?.Invoke();
                         return true;
                     }
@@ -163,7 +163,7 @@ namespace vector_accelerator_project
                 Segment_positions.Last()[4] = anchorEnd_x;
                 Segment_positions.Last()[5] = increment_x;
 
-                Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 });
+                Segment_positions.Add(new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 
                 // Prevent infinite loop
                 if (increment_y == 0 && increment_x == 0) break;
@@ -177,7 +177,7 @@ namespace vector_accelerator_project
         public void clear_allSegments(displayFunc display)
         {
             Segment_positions.Clear(); // Remove all elements
-            Segment_positions.Add(new int[6] { 0, 0, 0, 0, 0, 0 }); // Add a new default array
+            Segment_positions.Add(new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }); // Add a new default array
 
             display?.Invoke();
         }
@@ -378,9 +378,6 @@ namespace vector_accelerator_project
         {
             try
             {
-                // Segment_positions.Last()[index] = value * 207;
-
-                // V2 Update 29/4:
                 Segment_positions.Last()[index] = value * mmToStepper_unitAxisAB;
             }
             catch (Exception e)
@@ -457,7 +454,15 @@ namespace vector_accelerator_project
             }
         }
 
-        //Movement for a specific set of AB-axis coordinates within MovementVariables:
+        //Movement for any kind of absolute movment in the ABC-axis space (without C-axis bar drop):
+        protected internal void general_move_helper(int[] position, MovementVariables movementVariables)
+        {
+            runAbsoluteMoveCommand("A", position[0], movementVariables.Speed_a);
+            runAbsoluteMoveCommand("B", position[1], movementVariables.Speed_b);
+            runAbsoluteMoveCommand("C", position[2], movementVariables.Speed_c);
+        }
+
+        //Movement for a specific set of AB-axis coordinates within MovementVariables, with C-axis bar drop:
         protected internal void special_move_helper(int[] position, MovementVariables movementVariables)
         {
             int dropped_abs_position = movementVariables.Axis_c_drop_by + movementVariables.Axis_c_rest_position;
@@ -530,13 +535,11 @@ namespace vector_accelerator_project
         public void move(MovementVariables movementVariables, CancellationToken cancellationToken)
         {
             moveFactory.special_move_helper(movementVariables.Start_position, movementVariables);
-            // BLOCK of code to complete user specified task....
-            // I replace it temporarily with a simple pause:
 
             // i add VNA stuff in now: 
             analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
-            //WANT TO PASS PNA_SCAN ARGUMENTS TO BE ACCESSED WITHIN THAT METHOD ITSELF
             System.Threading.Thread.Sleep(200);
+
             movementVariables.Intermediate_positions?.ForEach(a => {
 
                 // Check for cancellation at the start of each segment
@@ -545,12 +548,11 @@ namespace vector_accelerator_project
                     return; // Exit the ForEach loop and stop the entire function
                 }
 
+                // move to next point
                 moveFactory.special_move_helper(a, movementVariables);
-                // BLOCK of code to complete user specified task....
-                // I replace it temporarily with a simple pause:
+                // wait 200ms
                 System.Threading.Thread.Sleep(200);
-
-                // i add VNA stuff in now:
+                // make VNA scan
                 analyzer.PNA_scan(a, movementVariables);
             });
 
