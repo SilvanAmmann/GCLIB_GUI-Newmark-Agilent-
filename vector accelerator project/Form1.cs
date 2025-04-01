@@ -598,7 +598,7 @@ namespace vector_accelerator_project
         //Add intermediate position:
         private void button8_Click(object sender, EventArgs e)
         {
-            movementVariables.Intermediate_positions.Add(new int[2] { 0, 0 }); // add one more element to prevent overrding (update: 4/2/2020)
+            movementVariables.Intermediate_positions.Add(new int[3] { 0, 0, 0 }); // add one more element to prevent overrding (update: 4/2/2020)
             set_manualVariables(movementVariables.set_IntermediatePosition);
             //movementVariables.Intermediate_positions.Add(new int[2] { 0, 0 }); 
             display_textbox4_manual();
@@ -632,7 +632,7 @@ namespace vector_accelerator_project
 
             try
             {
-                // Start the async process
+                // Start the movement in a seperate process
                 await Task.Run(() => movementType.move(movementVariables, cancellationToken), cancellationToken);
             }
             catch (OperationCanceledException)

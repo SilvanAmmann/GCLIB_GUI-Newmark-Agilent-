@@ -243,7 +243,7 @@ namespace vector_accelerator_project
             dbpt.Data = Measure();
             // Landing point to do PNA scan:
             dbpt.Location = new Point(coor[0], coor[1]);
-            dbpt.LocationZ = movementVariables.Axis_c_rest_position + movementVariables.Axis_c_drop_by;
+            dbpt.LocationZ = coor[2];
             //dbpt.Index = i;
             dataPoints.Add(dbpt);
         }
