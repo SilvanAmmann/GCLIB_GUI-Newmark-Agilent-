@@ -12,6 +12,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using AgilentPNA835x;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace vector_accelerator_project
 {
@@ -292,6 +293,7 @@ namespace vector_accelerator_project
             }
             textBox4.Text += "Drop bar by (units): " + movementVariables.Axis_c_drop_by + Environment.NewLine;
             textBox4.Text += "Axis-c resting position: " + movementVariables.Axis_c_rest_position + Environment.NewLine;
+            textBox4.Text += "Even Row Offset: " + movementVariables.Even_row_offset + Environment.NewLine;
         }
 
         //Various print styles.
@@ -549,8 +551,8 @@ namespace vector_accelerator_project
         // Set number of units to drop axis-c, according to input from textBox5: 
         private void button11_Click(object sender, EventArgs e)
         {
-            int value = 0;
-            int.TryParse(textBox5.Text, out value);
+            float value = 0;
+            float.TryParse(textBox5.Text, out value);
             movementVariables.Axis_c_drop_by = value;
 
             if (manualButton.Checked == true) display_textbox4_manual();
@@ -560,8 +562,8 @@ namespace vector_accelerator_project
         //Set Axis-c rest position (for special movement)
         private void button15_Click(object sender, EventArgs e)
         {
-            int value = 0;
-            int.TryParse(textBox5.Text, out value);
+            float value = 0;
+            float.TryParse(textBox5.Text, out value);
             movementVariables.Axis_c_rest_position = value;
 
             if (manualButton.Checked == true) display_textbox4_manual();
@@ -741,8 +743,8 @@ namespace vector_accelerator_project
 
         private void segment_position_insert(int index)
         {
-            int value = 0;
-            int.TryParse(textBox7.Text, out value);
+            float value = 0;
+            float.TryParse(textBox7.Text, out value);
             movementVariables.set_SegmentPosition(index, value);
             display_textbox4_segment();
         }
@@ -818,9 +820,9 @@ namespace vector_accelerator_project
         // Segment movement: add segment button:
         private void button21_Click(object sender, EventArgs e)
         {
-            if (segmentNormalButton.Checked)
-                movementVariables.add_Segment(display_textbox4_segment);
-            else if (segmentGridButton.Checked)
+            //if (segmentNormalButton.Checked)
+                //movementVariables.add_Segment(display_textbox4_segment);
+            //else if (segmentGridButton.Checked)
                 movementVariables.add_SegmentGrid(display_textbox4_segment);
         }
 
@@ -1030,13 +1032,13 @@ namespace vector_accelerator_project
         // Update: 1 april 2020: fast grid movement compatibility
         private void segmentNormalButton_CheckedChanged(object sender, EventArgs e)
         {
-           // keeping empty. only need checkbutton status elsewhere
+            // keep empty is is only used to check somewhere else.
         }
 
         // Update: 1 april 2020: fast grid movement compatibility
         private void segmentGridButton_CheckedChanged(object sender, EventArgs e)
         {
-            // keeping empty. only need checkbutton status elsewhere
+            // keep empty is is only used to check somewhere else.
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -1095,6 +1097,25 @@ namespace vector_accelerator_project
         private void label18_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // write the inputed even row offset to the movementVariables instance
+        private void button12_Click(object sender, EventArgs e)
+        {
+            float value = 0;
+            float.TryParse(textBox9.Text, out value);
+            movementVariables.Even_row_offset = value;
+            display_textbox4_segment();
         }
     }
 }
