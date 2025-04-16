@@ -80,6 +80,7 @@ namespace vector_accelerator_project
 
         public delegate void displayFunc(); 
 
+        // This function is not used in newer versions because everything is done with the add_SegmentGrid() funciton
         public bool add_Segment(displayFunc display)
         {
             // check if Segment values are valid (i.e. if they add up):
@@ -95,9 +96,7 @@ namespace vector_accelerator_project
             }
             else if(b_sample_num != 0 || a_sample_num != 0)
             {
-                // added 24/3/2020
                 // edge case: if either a or b direction is stationary, but not both
-
                 if(b_sample_num != 0)
                 {
                     if (((Segment_positions.Last()[4] - Segment_positions.Last()[3]) % Segment_positions.Last()[5] == 0))
@@ -122,8 +121,6 @@ namespace vector_accelerator_project
                 return false;
         }
 
-        // added 24/3/2020. Updated 1 april 2020
-        // Feature update: Grid segment type movement, that "reformats" the segment value input. This is different from add_segment above
         public bool add_SegmentGrid(displayFunc display)
         {
             // Note now: y = a axis in GUI
@@ -149,8 +146,6 @@ namespace vector_accelerator_project
             // We iterate through y_axis end to end, then move increment x_axis once, then repeat, then increment z once, then repeat:
 
             // Section1: check alignment: increment multiple is valid
-
-
             // sub-section1: normal non-zero multiple:
             bool validIncrement_x = (increment_x > 0) ? (anchorEnd_x - anchorStart_x) % increment_x == 0 ? true : false : false;
             bool validIncrement_y = (increment_y > 0) ? (anchorEnd_y - anchorStart_y) % increment_y == 0 ? true : false : false;
@@ -307,7 +302,7 @@ namespace vector_accelerator_project
             Speed_c = 16; //recommended speed 16 mm/s
         }
 
-        //Variables that store other parameters:
+        // Provate variables that store other parameters:
         private float axis_c_drop_by;
         private float axis_c_rest_position;
         private float even_row_offset;
@@ -388,9 +383,6 @@ namespace vector_accelerator_project
         {
             try
             {
-               //  End_position[index] = value * 207;
-
-                // V2 Update 29/4:
                 End_position[index] = value * mmToStepper_unitAxisAB;
             }
             catch (Exception e)
@@ -405,9 +397,6 @@ namespace vector_accelerator_project
         {
             try
             {
-                // Intermediate_positions.Last()[index] = value * 207;
-
-                // V2 Update 29/4:
                 Intermediate_positions.Last()[index] = value * mmToStepper_unitAxisAB;
             }
             catch (Exception e)
@@ -456,47 +445,32 @@ namespace vector_accelerator_project
             this.gclib = gclib;
         }
 
-        //Basic PA movement, while printing output to TextBox1:
+        //Basic PA (absolute coordinates) movement:
         protected internal void runAbsoluteMoveCommand(string axis, int distance_units, int speed)
         {
             try
             {
-                //form.printTextBox1("Preparing " + axis + " axis for PA movement. This could cause errors if the axis is not initialized...");
-                gclib.GCommand("MO;SH" + axis);  // removed the AB; (abort) command at the begining, because it is suspected to cause problems.
-                //compound commands are possible though typically not recommended
-                //form.printTextBox1("Ok");
+                gclib.GCommand("MO;SH" + axis);
                 gclib.GCommand("PA" + axis + "=" + distance_units);
-                //might implement speed control parameter in future
                 gclib.GCommand("SP" + axis + "=" + speed);
-                //form.printTextBox1("Profiling a move on axis" + axis + "... ");
                 gclib.GCommand("BG" + axis);
-                //form.printTextBox1("Waiting for motion to complete... ");
                 gclib.GMotionComplete(axis);
-                //form.printTextBox1("done");
             }
             catch (Exception ex)
             {
                 form.printTextBox1("ERROR in runAbsoluteMoveCommand on axis " + axis + ": " + ex.Message, Form1.PrintStyle.Instruction);
             }
         }
-        //Note to self: axis must be in Capital letters.
-        //Simple PR movement:
+        //Simple PR (relative distances) movement:
         public void runRelativeMoveCommand(string axis, float distance_units, int speed)
         {
             try
             {
-                //form.printTextBox1("Preparing " + axis + " axis for PR movement. This could cause errors if the axis is not initialized...");
                 gclib.GCommand("MO;SH" + axis);
-                //compound commands are possible though typically not recommended
-                //form.printTextBox1("Ok");
                 gclib.GCommand("PR" + axis + "=" + (Int32)Math.Round(distance_units));
-                //might implement speed control parameter in future
                 gclib.GCommand("SP" + axis + "=" + speed);
-                //form.printTextBox1("Profiling a move on axis" + axis + "... ");
                 gclib.GCommand("BG" + axis);
-                //form.printTextBox1("Waiting for motion to complete... ");
                 gclib.GMotionComplete(axis);
-                //form.printTextBox1("done");
                 
             }
             catch (Exception ex)
@@ -557,7 +531,6 @@ namespace vector_accelerator_project
         }
 
         public virtual void move(MovementVariables movementVariables, CancellationToken cancellationToken) { }
-        //public virtual void displayFunc() { } // Format for displaying your movement required values
 
         public void goHome(MovementVariables movementVariables)
         {
@@ -587,7 +560,6 @@ namespace vector_accelerator_project
         {
             moveFactory.special_move_helper(movementVariables.Start_position, movementVariables);
 
-            // i add VNA stuff in now: 
             analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
             System.Threading.Thread.Sleep(200);
 
@@ -608,11 +580,8 @@ namespace vector_accelerator_project
             });
 
             moveFactory.special_move_helper(movementVariables.End_position, movementVariables);
-            // BLOCK of code to complete user specified task....
-            // I replace it temporarily with a simple pause:
             System.Threading.Thread.Sleep(200);
 
-            // i add VNA stuff in now:
             analyzer.PNA_scan(movementVariables.End_position, movementVariables);
 
             // return to original axis-c rest position before ending movement:
@@ -671,8 +640,8 @@ namespace vector_accelerator_project
                             moveFactory.general_move_helper(movementVariables.Start_position, movementVariables);
                         }
 
-                            // i add VNA stuff in now:
-                            analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
+                        // VNA measurement
+                        analyzer.PNA_scan(movementVariables.Start_position, movementVariables);
 
                         if (movementVariables.Start_position[0] == a[1] && movementVariables.Start_position[1] == a[4]) break;                      
                     }

@@ -46,8 +46,6 @@ namespace vector_accelerator_project
             set
             {
                 _abs_position = value;
-                //next line does not work:
-                //textBox2.Text += "X = " + _abs_position[0] + " Y = " + _abs_position[1] + "Z = " + _abs_position[2] + Environment.NewLine; 
             }
         }
         private int[] _abs_position = new int[3] {0,0,0};
@@ -59,15 +57,10 @@ namespace vector_accelerator_project
         {
             try
             {
-                PrintOutput(textBox1, "Updating absolute position.. ", PrintStyle.Normal, true);
                 PrintOutput(textBox2, "Updating absolute position.. ", PrintStyle.Normal, true);
 
-                
                 string td_value = gclib.GCommand("PA?,?,?");
        
-
-                PrintOutput(textBox1, "Converting..", PrintStyle.Normal, true);
-
                 // Here onwards we update the variable abs_position:
                 // this function only updates X, Y coordinates
                 coor_string_to_intArr(td_value, abs_position);
@@ -82,7 +75,6 @@ namespace vector_accelerator_project
                     //if conversion failed
                     abs_position[2] = temp_abs;
                 }
-                PrintOutput(textBox1, "Done!", PrintStyle.Normal, true);
                 PrintOutput(textBox2, td_value, PrintStyle.GalilData);
             }
             catch (Exception ex)
@@ -140,8 +132,6 @@ namespace vector_accelerator_project
         }
         #endregion
 
-        // Added on 1st Oct 2019 (Post other PNA additions):
-        // Edited 18/12/19
         #region PNA Settings
         private void InitializePNA()
         {
@@ -181,13 +171,6 @@ namespace vector_accelerator_project
         {
             return mmButton.Checked;
         }
-
-        public void clearMovementValue_textBox()
-        {
-            textBox4.Clear();
-        }
-
-
         #endregion
 
         #region "Helper functions"
@@ -211,7 +194,6 @@ namespace vector_accelerator_project
                     label21.Text = "Slew Speed (Stepper Units/s):";
                 }
 
-                // UPDATE 30/4/20:
                 movementVariables.mmToStepper_unitAxisAB = myMmToStepper_unitAxisAB;
                 movementVariables.mmToStepper_unitAxisC = myMmToStepper_unitAxisC;
             }
@@ -262,7 +244,6 @@ namespace vector_accelerator_project
             textBox4.Text += "End position: " + movementVariables.End_position[0] + ", " 
                 + movementVariables.End_position[1] + Environment.NewLine;
             textBox4.Text += "Drop bar by (units): " + movementVariables.Axis_c_drop_by + Environment.NewLine;
-            //textBox4.Text += "Sample every (units): " + sample_units[0] + ", " + sample_units[1] + Environment.NewLine;
             textBox4.Text += "Axis-c resting position: " + movementVariables.Axis_c_rest_position;
         }
       
@@ -461,9 +442,6 @@ namespace vector_accelerator_project
                 PrintOutput(textBox1, "Invalid address. Re-enter a FULL GOpen() address above and click Go", PrintStyle.Instruction);
                 return;
             }
-            
-            //Given previously, because it was meant to execute demo only ONCE, when the connect button is clicked. 
-            //RunDemo(AddressTextBox.Text);
         }
 
         private void DisconnectStripButton_Click(object sender, EventArgs e)
@@ -487,9 +465,6 @@ namespace vector_accelerator_project
         // general movement, + axis-a incremental movement button: 
         private void button1_Click(object sender, EventArgs e)
         {
-            //FUTURE: not sure what this string command does
-            //runCommand("i=0\r#A;MG i{N};i=i+1;WT10;JP#A,i<10;EN");
-
             //take a single button click as moving 10000 units in a-axis
             movementType.runRelativeMoveCommand("A", movementVariables.Increment_unit_a, movementVariables.Speed_a);
 
@@ -538,7 +513,7 @@ namespace vector_accelerator_project
             groupBox1.Enabled = true;
             GeneralGroup.Enabled = true;
             originButton.Enabled = true; returnOriginButton.Enabled = true;
-            axisCinputBox.Enabled = false; manualBox.Enabled = false; segmentBox.Enabled = false;
+            axisCinputBox.Enabled = false; manualBox.Enabled = false; segmentBox.Enabled = false; rowOffsetBox.Enabled = false;
 
             //Also Update gantry absolute position to variable abs_position:
             cur_abs_pos(abs_position);
@@ -602,7 +577,6 @@ namespace vector_accelerator_project
         {
             movementVariables.Intermediate_positions.Add(new int[3] { 0, 0, 0 }); // add one more element to prevent overrding (update: 4/2/2020)
             set_manualVariables(movementVariables.set_IntermediatePosition);
-            //movementVariables.Intermediate_positions.Add(new int[2] { 0, 0 }); 
             display_textbox4_manual();
         }
 
@@ -705,11 +679,11 @@ namespace vector_accelerator_project
         //axis-a slew speed button:
         private void button23_Click(object sender, EventArgs e)
         {
-            int speed = 5000;
+            int speed = 20; // self determined default value in mm/S
             if (!(Int32.TryParse(textBox8.Text, out speed)))
             {
                 //if conversion failed, revert to default slew speed
-                speed = 5000;
+                speed = 20;
             }
             movementVariables.Speed_a = speed;
         }
@@ -717,11 +691,11 @@ namespace vector_accelerator_project
         //axis-b slew speed button:
         private void button24_Click(object sender, EventArgs e)
         {
-            int speed = 5000;
+            int speed = 20; // self determined default value in mm/S
             if (!(Int32.TryParse(textBox8.Text, out speed)))
             {
                 //if conversion failed, revert to default slew speed
-                speed = 5000;
+                speed = 20;
             }
             movementVariables.Speed_b = speed;
         }
@@ -729,11 +703,11 @@ namespace vector_accelerator_project
         //axis-c slew speed button:
         private void button25_Click(object sender, EventArgs e)
         {
-            int speed = 5000;
+            int speed = 20;
             if (!(Int32.TryParse(textBox8.Text, out speed)))
             {
                 //if conversion failed, revert to default slew speed
-                speed = 5000;
+                speed = 20;
             }
             movementVariables.Speed_c = speed;
         }
@@ -809,24 +783,11 @@ namespace vector_accelerator_project
             movementVariables.clear_allSegments(display_textbox4_segment);
         }
 
-        //// Segment movement: add segment button:
-        //private void button21_Click(object sender, EventArgs e)
-        //{
-        //    movementVariables.add_Segment(display_textbox4_segment);
-        //}
-
-
-        // Update 1 april 2020: for fast grid movement compatibility
         // Segment movement: add segment button:
         private void button21_Click(object sender, EventArgs e)
         {
-            //if (segmentNormalButton.Checked)
-                //movementVariables.add_Segment(display_textbox4_segment);
-            //else if (segmentGridButton.Checked)
-                movementVariables.add_SegmentGrid(display_textbox4_segment);
+            movementVariables.add_SegmentGrid(display_textbox4_segment);
         }
-
-
         #endregion
 
 
@@ -835,11 +796,12 @@ namespace vector_accelerator_project
         {
             if (manualButton.Checked == true)
             {
-                //unitChangeHandler(); // commented for test purposes
-                //movementVariables.clear_allSegments(display_textbox4_segment); //added to replace unitChangeHandler
+                movementVariables.clear_allSegments(display_textbox4_segment); //added to replace unitChangeHandler
                 movementType = new ManualMovement(analyzer, this, gclib/*, ref movementVariables*/);
                 
-                segmentBox.Enabled = false; axisCinputBox.Enabled = true;
+                segmentBox.Enabled = false; 
+                axisCinputBox.Enabled = true;
+                rowOffsetBox.Enabled = false;
                 manualBox.Enabled = true;
                 textBox4.Clear();
             }
@@ -850,11 +812,12 @@ namespace vector_accelerator_project
         {
             if (segmentButton.Checked == true)
             {
-                //unitChangeHandler(); //comented for test purposes
-                //movementVariables.clear_allSegments(display_textbox4_segment); //added to replace unitChangeHandler
+                movementVariables.clear_allSegments(display_textbox4_segment); //added to replace unitChangeHandler
                 movementType = new SegmentMovement(analyzer, this, gclib/*, ref movementVariables*/);
                 
-                segmentBox.Enabled = true; axisCinputBox.Enabled = true;
+                segmentBox.Enabled = true; 
+                axisCinputBox.Enabled = true;
+                rowOffsetBox.Enabled = true;
                 manualBox.Enabled = false;
                 textBox4.Clear();
             }
@@ -865,23 +828,6 @@ namespace vector_accelerator_project
         #region "Controls + methods currently unused. Feel free to disassociate"
 
         #region "currently unused"
-        // Currently unused
-        private int convert_mm_step(int axis, int input)
-        {
-            // Parameters:
-            // axis: 0 = axis-a, 1 = axis-b, 2 = axis-c
-
-            int converted = 0;
-
-            // convert mm to step:
-            // Note measured mm lengths for axis a b and c, are ~120,120,34cm respectively. 
-            if (axis == 0) converted = input * 207;
-            if (axis == 1) converted = input * 207;
-            if (axis == 2) converted = input * 14970;
-
-            return converted;
-        }
-
 
         //Note to self: currently not working
         public void Main(string address)
@@ -1029,18 +975,6 @@ namespace vector_accelerator_project
 
         }
 
-        // Update: 1 april 2020: fast grid movement compatibility
-        private void segmentNormalButton_CheckedChanged(object sender, EventArgs e)
-        {
-            // keep empty is is only used to check somewhere else.
-        }
-
-        // Update: 1 april 2020: fast grid movement compatibility
-        private void segmentGridButton_CheckedChanged(object sender, EventArgs e)
-        {
-            // keep empty is is only used to check somewhere else.
-        }
-
         private void label11_Click(object sender, EventArgs e)
         {
 
@@ -1116,6 +1050,16 @@ namespace vector_accelerator_project
             float.TryParse(textBox9.Text, out value);
             movementVariables.Even_row_offset = value;
             display_textbox4_segment();
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void translatorTabPage_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
