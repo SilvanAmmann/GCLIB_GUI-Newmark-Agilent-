@@ -192,9 +192,9 @@ Axis-c: 5090000 stepper counts/ 340mm
 (Note: keep minimum increment above 500 stepper counts/ 3mm)
 
 Universal:
-Axis-a: +ve (front),  -ve (back)
-Axis-b: +ve (left), -ve (right)
-Axis-c: +ve (downwards), -ve (upwards)
+Axis-a (y-axis): +ve (backwards),  -ve (forward)
+Axis-b (x-axis): +ve (left), -ve (right)
+Axis-c (z-axis): +ve (downwards), -ve (upwards)
 
 Maximum Slew Speed:
 Axis-a,b: &lt; 25000 Stepper Units/s, 100 mm/s

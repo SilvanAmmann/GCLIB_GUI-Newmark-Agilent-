@@ -679,7 +679,7 @@ namespace vector_accelerator_project
             if (movementVariables.ABaxis == true)
             {
                 // return to original axis-c rest position before ending movement:
-                moveFactory.runAbsoluteMoveCommand("C", movementVariables.Segment_positions.Last()[7], movementVariables.Speed_c);
+                moveFactory.runAbsoluteMoveCommand("C", movementVariables.Segment_positions[movementVariables.Segment_positions.Count - 2][7], movementVariables.Speed_c);
             }
             form.printTextBox1($"Grid measurement took: {timer.ElapsedMilliseconds / 1000}s\n");
         }
