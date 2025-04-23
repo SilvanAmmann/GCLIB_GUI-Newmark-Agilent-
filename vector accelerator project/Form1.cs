@@ -40,7 +40,7 @@ namespace vector_accelerator_project
 
         // for abs_position the coor will be constantly displayed/updated, so I use this method:
         // Accessor function for private variable _abs_position (absolute position of gantry)
-        public int[] abs_position
+        public float[] abs_position
         {
             get { return _abs_position; }
             set
@@ -48,12 +48,12 @@ namespace vector_accelerator_project
                 _abs_position = value;
             }
         }
-        private int[] _abs_position = new int[3] {0,0,0};
+        private float[] _abs_position = new float[3] {0,0,0};
 
 
         //Retrieve absolute position of gantry (Axes a,b, c):
         //Note that retrieval can only be done when the gantry is no longer moving.
-        private void cur_abs_pos(int[] abs_position)
+        private void cur_abs_pos(float[] abs_position)
         {
             try
             {
@@ -62,19 +62,8 @@ namespace vector_accelerator_project
                 string td_value = gclib.GCommand("PA?,?,?");
        
                 // Here onwards we update the variable abs_position:
-                // this function only updates X, Y coordinates
-                coor_string_to_intArr(td_value, abs_position);
-                // To update Z coordinate (axis-c), we do so manually:
-                // Note that IndexOf in this case has 2 args and works like such:
-                // 1st arg = char to look for in str, 2nd arg = index in str to begin searching
-                int index_2nd_comma = td_value.IndexOf(',', td_value.IndexOf(',') + 2);    
-                string temp = td_value.Substring(index_2nd_comma);
-                int temp_abs = abs_position[2];
-                if (!(Int32.TryParse(temp, out abs_position[2])))
-                {
-                    //if conversion failed
-                    abs_position[2] = temp_abs;
-                }
+                coor_string_to_floatArr(td_value, abs_position);
+
                 PrintOutput(textBox2, td_value, PrintStyle.GalilData);
             }
             catch (Exception ex)
@@ -199,34 +188,24 @@ namespace vector_accelerator_project
             }
         }
 
-        // From string from textBox, to X, Y coordinates in int array:
-        private void coor_string_to_intArr(string text, int[] prev_position)
+        // From string from textBox, to X, Y, Z coordinates in int array:
+        private void coor_string_to_floatArr(string text, float[] prev_position)
         {
-            int[] arr = new int[2];
+            int[] arr = new int[3];
 
             try
-            {  
-                Array.Copy(prev_position, arr, 0);
-                string temp = text.Substring(0, text.IndexOf(", "));
-                if (!(Int32.TryParse(temp, out prev_position[0])))
-                {
-                    //if conversion failed
-                    prev_position[0] = arr[0];
-                }
+            {
+                string[] parts = text.Split(new[] { ", " }, StringSplitOptions.None);
 
-                temp = text.Substring(text.IndexOf(", ") + 2);
-
-                if (!(Int32.TryParse(temp, out prev_position[1])))
-                {
-                    //if conversion failed
-                    prev_position[1] = arr[1];
-                }
+                if (!float.TryParse(parts[0], out prev_position[0])) prev_position[0] = arr[0];
+                if (!float.TryParse(parts[1], out prev_position[1])) prev_position[1] = arr[1];
+                if (!float.TryParse(parts[2], out prev_position[2])) prev_position[2] = arr[2];
             }
             catch (Exception ex)
             {
-                PrintOutput(textBox1, "ERROR in converting text to int: " + ex.Message, PrintStyle.Instruction);
+                PrintOutput(textBox1, "ERROR in converting text to float: " + ex.Message, PrintStyle.Instruction);
                 // revert back to previous values.  
-                prev_position[1] = arr[1]; prev_position[0] = arr[0]; 
+                prev_position[2] = arr[2]; prev_position[1] = arr[1]; prev_position[0] = arr[0]; 
             }
         }
 
@@ -236,15 +215,16 @@ namespace vector_accelerator_project
         {   
             textBox4.Clear();
             textBox4.Text += "Start position: " + movementVariables.Start_position[0] + ", " 
-                + movementVariables.Start_position[1] + Environment.NewLine;
+                + movementVariables.Start_position[1] + ", "
+                + movementVariables.Start_position[2] + Environment.NewLine;
 
             movementVariables.Intermediate_positions?.ForEach(a => {
-                textBox4.Text += "Intermediate position: " + a[0] + ", " + a[1] + Environment.NewLine;
+                textBox4.Text += "Intermediate position: " + a[0] + ", " + a[1] + ", " + a[2] + Environment.NewLine;
             });
             textBox4.Text += "End position: " + movementVariables.End_position[0] + ", " 
-                + movementVariables.End_position[1] + Environment.NewLine;
-            textBox4.Text += "Drop bar by (units): " + movementVariables.Axis_c_drop_by + Environment.NewLine;
-            textBox4.Text += "Axis-c resting position: " + movementVariables.Axis_c_rest_position;
+                + movementVariables.End_position[1] + ", "
+                + movementVariables.End_position[2] + Environment.NewLine;
+            textBox4.Text += "Drop bar by: " + movementVariables.Axis_c_drop_by + Environment.NewLine;
         }
       
         private void display_textbox4_segment()
@@ -272,8 +252,7 @@ namespace vector_accelerator_project
                 textBox4.Text += "C(start): " + b[6] + ", C(end): " + b[7] + ", delta C: " + b[8] + Environment.NewLine + Environment.NewLine;
 
             }
-            textBox4.Text += "Drop bar by (units): " + movementVariables.Axis_c_drop_by + Environment.NewLine;
-            textBox4.Text += "Axis-c resting position: " + movementVariables.Axis_c_rest_position + Environment.NewLine;
+            textBox4.Text += "Drop bar by: " + movementVariables.Axis_c_drop_by + Environment.NewLine;
             textBox4.Text += "Even Row Offset: " + movementVariables.Even_row_offset + Environment.NewLine;
         }
 
@@ -534,27 +513,28 @@ namespace vector_accelerator_project
             if (segmentButton.Checked == true) display_textbox4_segment();
         }
 
-        //Set Axis-c rest position (for special movement)
+        //Set Axis-c rest position (for special movement)     Note: This feature is not used anymore
         private void button15_Click(object sender, EventArgs e)
         {
-            float value = 0;
-            float.TryParse(textBox5.Text, out value);
-            movementVariables.Axis_c_rest_position = value;
+            //float value = 0;
+            //float.TryParse(textBox5.Text, out value);
+            //movementVariables.Axis_c_rest_position = value;
 
-            if (manualButton.Checked == true) display_textbox4_manual();
-            if (segmentButton.Checked == true) display_textbox4_segment();
+            //if (manualButton.Checked == true) display_textbox4_manual();
+            //if (segmentButton.Checked == true) display_textbox4_segment();
         }
 
         #endregion
 
         #region "Manual movement specific textbox related controls"
-        public delegate bool set_Position(int index, int value);
+        public delegate bool set_Position(int index, float value);
         private void set_manualVariables(set_Position s)
         {
-            int[] positionArray = new int[2] { 0, 0 };
-            coor_string_to_intArr(textBox3.Text, positionArray);
+            float[] positionArray = new float[3] {0, 0, 0};
+            coor_string_to_floatArr(textBox3.Text, positionArray);
             s(0, positionArray[0]);
             s(1, positionArray[1]);
+            s(2, positionArray[2]);
         }
 
         //Set start_position:
@@ -597,6 +577,10 @@ namespace vector_accelerator_project
             button13.Enabled = false;
             btnStop.Enabled = true;
 
+            // Disable Add and Clear all Segments buttons
+            button21.Enabled = false;
+            button22.Enabled = false;
+
             // Create a new CancellationTokenSource
             _cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = _cancellationTokenSource.Token;
@@ -621,6 +605,10 @@ namespace vector_accelerator_project
                 // Re-enable the Start button and disable the Stop button
                 button13.Enabled = true;
                 btnStop.Enabled = false;
+
+                // Disable Add and Clear all Segments buttons
+                button21.Enabled = true;
+                button22.Enabled = true;
 
                 // Clean up the CancellationTokenSource
                 _cancellationTokenSource.Dispose();

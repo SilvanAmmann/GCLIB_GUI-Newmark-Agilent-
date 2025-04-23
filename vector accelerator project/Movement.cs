@@ -25,12 +25,12 @@ namespace vector_accelerator_project
         // each int[] has 6 elements (in-order): 
         // a(start), a(end), a(delta), b(start), b(end), b(delta)
         public List<int[]> Segment_positions { get; private set; }
+
         // varible to tell if it is an AB-axis movement (drop C-axis available) or not
-        public virtual bool ABaxis { get; private set; }
+        public virtual bool ABaxis { get; set; }
 
         //Variables that store other parameters:
         public virtual float Axis_c_drop_by { get; set; }  //axis-c drop by how many units while sampling
-        public virtual float Axis_c_rest_position { get; set; }
 
         public virtual float Even_row_offset { get; set; }
 
@@ -49,11 +49,10 @@ namespace vector_accelerator_project
         public MovementVariables()
         {
             //Variables that store coordinates:
-            Start_position = new int[3] { 0, 0, 0};
-            End_position = new int[3] { 0, 0, 0 };
+            Start_position = new int[3] {0, 0, 0};
+            End_position = new int[3] {0, 0, 0};
             //a list of integer arrays, each with 2 elements:
             Intermediate_positions = new List<int[]>();
-            //Intermediate_positions.Add(new int[2] { 0, 0 });
 
             Segment_positions = new List<int[]>();
             Segment_positions.Add(new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0}); // Will be filled with the segment/grid parameters.
@@ -62,7 +61,6 @@ namespace vector_accelerator_project
 
             //Variables that store other parameters:
             Axis_c_drop_by = 0;  //axis-c drop by how many units while sampling
-            Axis_c_rest_position = 0;
             Even_row_offset = 0;
 
 
@@ -73,13 +71,14 @@ namespace vector_accelerator_project
             mmToStepper_unitAxisAB = 250;
         }
 
-        public virtual bool set_StartPosition(int index, int value) { return true; }
-        public virtual bool set_EndPosition(int index, int value) { return true; }
-        public virtual bool set_IntermediatePosition(int index, int value) { return true; }
+        public virtual bool set_StartPosition(int index, float value) { return true; }
+        public virtual bool set_EndPosition(int index, float value) { return true; }
+        public virtual bool set_IntermediatePosition(int index, float value) { return true; }
         public virtual bool set_SegmentPosition(int index, float value) { return true; }
 
-        public delegate void displayFunc(); 
+        public delegate void displayFunc();
 
+        #region unused
         // This function is not used in newer versions because everything is done with the add_SegmentGrid() funciton
         public bool add_Segment(displayFunc display)
         {
@@ -120,13 +119,16 @@ namespace vector_accelerator_project
                 System.Windows.Forms.MessageBox.Show("Segment values do not add up. Check your input values.", "Invalid Input.");
                 return false;
         }
+        #endregion
 
         public bool add_SegmentGrid(displayFunc display)
         {
-            // Note now: y = a axis in GUI
-            // Note now: x = b axis in GUI
-            // Note -a = move backwards
-            // Note -b = move right
+            // Note: y = a axis in GUI
+            // Note: x = b axis in GUI
+            // Note: z = c axis in GUI
+            // Note: -a = move forward
+            // Note: -b = move right
+            // Note: -c = move up
             int anchorStart_y = Segment_positions.Last()[0];
             int anchorStart_x = Segment_positions.Last()[3];
             int anchorStart_z = Segment_positions.Last()[6];
@@ -145,33 +147,35 @@ namespace vector_accelerator_project
 
             // We iterate through y_axis end to end, then move increment x_axis once, then repeat, then increment z once, then repeat:
 
-            // Section1: check alignment: increment multiple is valid
-            // sub-section1: normal non-zero multiple:
-            bool validIncrement_x = (increment_x > 0) ? (anchorEnd_x - anchorStart_x) % increment_x == 0 ? true : false : false;
-            bool validIncrement_y = (increment_y > 0) ? (anchorEnd_y - anchorStart_y) % increment_y == 0 ? true : false : false;
-            bool validIncrement_z = (increment_z > 0) ? (anchorEnd_z - anchorStart_z) % increment_z == 0 ? true : false : false;
+            //check alignment: increment multiple is valid. Check that not all increments are zero
+            bool validIncrement_x = (direction_x != 0 && increment_x > 0) ? (anchorEnd_x - anchorStart_x) % increment_x == 0 ? true : false : false;
+            bool validIncrement_y = (direction_y != 0 && increment_y > 0) ? (anchorEnd_y - anchorStart_y) % increment_y == 0 ? true : false : false;
+            bool validIncrement_z = (direction_z != 0 && increment_z > 0) ? (anchorEnd_z - anchorStart_z) % increment_z == 0 ? true : false : false;
+            validIncrement_x = (direction_x == 0 & increment_x == 0) ? true : validIncrement_x;
+            validIncrement_y = (direction_y == 0 & increment_y == 0) ? true : validIncrement_y;
+            validIncrement_z = (direction_z == 0 & increment_z == 0) ? true : validIncrement_z;
+            bool allDeltaZero = (increment_x == 0 & increment_y ==0 & increment_z == 0) ? true : false;
 
-            // sub-section2: edge case of 0 increment:
-            validIncrement_y = (validIncrement_y == false && increment_y == 0) ? (anchorStart_y - anchorEnd_y == 0) ? true : false : validIncrement_y;
-            validIncrement_x = (validIncrement_x == false && increment_x == 0) ? (anchorStart_x - anchorEnd_x == 0) ? true : false : validIncrement_x;
-            validIncrement_z = (validIncrement_z == false && increment_z == 0) ? (anchorStart_z - anchorEnd_z == 0) ? true : false : validIncrement_z;
-
-            if (!validIncrement_x || !validIncrement_y || !validIncrement_z)
+            if (!validIncrement_x || !validIncrement_y || !validIncrement_z || allDeltaZero)
             {
                 System.Windows.Forms.MessageBox.Show("Segment values do not add up. Check your input values.", "Invalid Input.");
                 return false;
             }
 
             // Start inserting segments into array:
-            for (int i = anchorStart_z; Math.Abs(i) <= Math.Abs(anchorEnd_z); i += direction_z * increment_z)
+            int i = anchorStart_z;
+            do
             {
                 int y_index = 0;
-                for (int j = anchorStart_y; Math.Abs(j) <= Math.Abs(anchorEnd_y); j += direction_y * increment_y)
+                int j = anchorStart_y;
+                do
                 {
+                    // set y-axis parameter
                     Segment_positions.Last()[0] = j;
                     Segment_positions.Last()[1] = j;
                     Segment_positions.Last()[2] = 0;
 
+                    // set x-axis parameter
                     if (y_index % 2 == 0)
                     {
                         Segment_positions.Last()[3] = anchorStart_x;
@@ -184,24 +188,30 @@ namespace vector_accelerator_project
                     }
                     Segment_positions.Last()[5] = direction_x * increment_x;
 
+                    // set z-axis parameter
                     Segment_positions.Last()[6] = i;
                     Segment_positions.Last()[7] = i;
                     Segment_positions.Last()[8] = 0;
 
                     Segment_positions.Add(new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 
-                    // Prevent infinite loop
                     if (increment_y == 0) break;
                     y_index += 1;
-                }
-                // Prevent infinite loop
+                    j += direction_y * increment_y;
+                } while (j != anchorEnd_y + direction_y * increment_y);
+
                 if (increment_z == 0) break;
-            }
+                i += direction_z * increment_z;
+            } while (i != anchorEnd_z + direction_z * increment_z);
 
             // set AB-axis mode with drop C-axis to true or false
             if (increment_z != 0) 
             {
-                this.ABaxis = false;
+                ABaxis = false;
+            }
+            else 
+            {
+                ABaxis = true;
             }
 
             display?.Invoke();
@@ -214,6 +224,10 @@ namespace vector_accelerator_project
             Segment_positions.Clear(); // Remove all elements
             Segment_positions.Add(new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }); // Add a new default array
 
+            // Set all C-axis and hexagonal grid offsets to zero.
+            Axis_c_drop_by = 0;
+            Even_row_offset = 0;
+
             display?.Invoke();
         }
     }
@@ -225,17 +239,17 @@ namespace vector_accelerator_project
         {
             Increment_unit_a = 10000;
             Increment_unit_b = 10000;
-            Increment_unit_c = 10000;
-            Speed_a = 5000; //recommended speed 5000 stepper units/s
-            Speed_b = 5000; //recommended speed 5000 stepper units/s
-            Speed_c = 400000; //recommended speed 400000 stepper units/s
+            Increment_unit_c = 500000;
+            Speed_a = 10000; //maximum speed < 25000 stepper units/s
+            Speed_b = 10000; //maximum speed < 25000 stepper units/s
+            Speed_c = 500000; //maximum speed < 500000 stepper units/s
         }
 
-        public override bool set_StartPosition(int index, int value)
+        public override bool set_StartPosition(int index, float value)
         {
             try
             {
-                Start_position[index] = value;
+                Start_position[index] = (int)Math.Round(value);
             }
             catch (Exception e)
             {
@@ -245,11 +259,11 @@ namespace vector_accelerator_project
             return true;
         }
 
-        public override bool set_EndPosition(int index, int value)
+        public override bool set_EndPosition(int index, float value)
         {
             try
             {
-                End_position[index] = value;
+                End_position[index] = (int)Math.Round(value);
             }
             catch (Exception e)
             {
@@ -259,11 +273,11 @@ namespace vector_accelerator_project
             return true;
         }
 
-        public override bool set_IntermediatePosition(int index, int value)
+        public override bool set_IntermediatePosition(int index, float value)
         {
             try
             {
-                Intermediate_positions.Last()[index] = value;
+                Intermediate_positions.Last()[index] = (int)Math.Round(value);
             }
             catch (Exception e)
             {
@@ -297,9 +311,9 @@ namespace vector_accelerator_project
             Increment_unit_a = 40;
             Increment_unit_b = 40;
             Increment_unit_c = 40;
-            Speed_a = 20; //recommended speed 20 mm/s
-            Speed_b = 20; //recommended speed 20 mm/s
-            Speed_c = 16; //recommended speed 16 mm/s
+            Speed_a = 40; //recommended speed 40 mm/s
+            Speed_b = 40; //recommended speed 40 mm/s
+            Speed_c = 20; //recommended speed 20 mm/s
         }
 
         // Provate variables that store other parameters:
@@ -318,11 +332,6 @@ namespace vector_accelerator_project
             get => axis_c_drop_by;
             set => axis_c_drop_by = value * mmToStepper_unitAxisC;
         }  
-        public override float Axis_c_rest_position
-        {
-            get => axis_c_rest_position;
-            set => axis_c_rest_position = value * mmToStepper_unitAxisC;
-        }
 
         public override float Even_row_offset
         {
@@ -365,11 +374,18 @@ namespace vector_accelerator_project
             set => speed_c = value * mmToStepper_unitAxisC;
         }
 
-        public override bool set_StartPosition(int index, int value)
+        public override bool set_StartPosition(int index, float value)
         {
             try
             {
-                Start_position[index] = value * mmToStepper_unitAxisAB;
+                if (index < 2)
+                {
+                    Start_position[index] = (int)Math.Round(value * mmToStepper_unitAxisAB);
+                }
+                else
+                {
+                    Start_position[index] = (int)Math.Round(value * mmToStepper_unitAxisC);
+                }
             }
             catch (Exception e)
             {
@@ -379,11 +395,18 @@ namespace vector_accelerator_project
             return true;
         }
 
-        public override bool set_EndPosition(int index, int value)
+        public override bool set_EndPosition(int index, float value)
         {
             try
             {
-                End_position[index] = value * mmToStepper_unitAxisAB;
+                if (index < 2)
+                {
+                    End_position[index] = (int)Math.Round(value * mmToStepper_unitAxisAB);
+                }
+                else
+                {
+                    End_position[index] = (int)Math.Round(value * mmToStepper_unitAxisC);
+                }
             }
             catch (Exception e)
             {
@@ -393,11 +416,18 @@ namespace vector_accelerator_project
             return true;
         }
 
-        public override bool set_IntermediatePosition(int index, int value)
+        public override bool set_IntermediatePosition(int index, float value)
         {
             try
             {
-                Intermediate_positions.Last()[index] = value * mmToStepper_unitAxisAB;
+                if (index < 2)
+                {
+                    Intermediate_positions.Last()[index] = (int)Math.Round(value * mmToStepper_unitAxisAB);
+                }
+                else
+                {
+                    Intermediate_positions.Last()[index] = (int)Math.Round(value * mmToStepper_unitAxisC);
+                }
             }
             catch (Exception e)
             {
@@ -490,8 +520,8 @@ namespace vector_accelerator_project
         //Movement for a specific set of AB-axis coordinates within MovementVariables, with C-axis bar drop:
         protected internal void special_move_helper(int[] position, MovementVariables movementVariables)
         {
-            int dropped_abs_position = (int)Math.Round(movementVariables.Axis_c_drop_by + movementVariables.Axis_c_rest_position);
-            runAbsoluteMoveCommand("C", (int)Math.Round(movementVariables.Axis_c_rest_position), movementVariables.Speed_c);
+            int dropped_abs_position = (int)Math.Round(position[2] + movementVariables.Axis_c_drop_by);
+            runAbsoluteMoveCommand("C", position[2], movementVariables.Speed_c);
             runAbsoluteMoveCommand("A", position[0], movementVariables.Speed_a);
             runAbsoluteMoveCommand("B", position[1], movementVariables.Speed_b);
             runAbsoluteMoveCommand("C", dropped_abs_position, movementVariables.Speed_c);
@@ -506,7 +536,7 @@ namespace vector_accelerator_project
             runAbsoluteMoveCommand("C", 0, movementVariables.Speed_c);
         }
 
-        // Stop current Movement, Note: does not work as intendet
+        // Stop current Movement, Note: Not used, does not work as intended
         public void stopMovement(MovementVariables movementVariables)
         {
             gclib.GCommand("ST");
@@ -542,6 +572,7 @@ namespace vector_accelerator_project
             moveFactory.runRelativeMoveCommand(axis, distance_units, speed);
         }
 
+        // Not used because does not work as desired
         public void stopMovement(MovementVariables movementVariables)
         {
             moveFactory.stopMovement(movementVariables);
@@ -583,9 +614,6 @@ namespace vector_accelerator_project
             System.Threading.Thread.Sleep(200);
 
             analyzer.PNA_scan(movementVariables.End_position, movementVariables);
-
-            // return to original axis-c rest position before ending movement:
-            moveFactory.runAbsoluteMoveCommand("C", (int)Math.Round(movementVariables.Axis_c_rest_position), movementVariables.Speed_c);
         }
     }
 
@@ -651,7 +679,7 @@ namespace vector_accelerator_project
             if (movementVariables.ABaxis == true)
             {
                 // return to original axis-c rest position before ending movement:
-                moveFactory.runAbsoluteMoveCommand("C", (int)Math.Round(movementVariables.Axis_c_rest_position), movementVariables.Speed_c);
+                moveFactory.runAbsoluteMoveCommand("C", movementVariables.Segment_positions.Last()[7], movementVariables.Speed_c);
             }
             form.printTextBox1($"Grid measurement took: {timer.ElapsedMilliseconds / 1000}s\n");
         }
